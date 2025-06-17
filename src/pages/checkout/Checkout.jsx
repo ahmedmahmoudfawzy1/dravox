@@ -34,6 +34,7 @@ export default function CheckoutPage() {
       }),
     onSuccess: (res) => {
       const addressId = res.data.id;
+      console.log(addressId);
       placeOrderMutation.mutate({
         shipping_address_id: addressId,
         billing_address_id: addressId,
@@ -62,18 +63,53 @@ export default function CheckoutPage() {
     return acc + (isNaN(value) ? 0 : value);
   }, 0);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const addressId = "3823c727-72a1-4e98-98d0-63830af47e28";
+    try {
+      // Step 1: Add shipping address
+      const shippingRes = await axiosInstance.post(
+        "/account/addresses/",
+        {
+          ...formData,
+          label: "Shipping Address",
+          address_type: "shipping",
+          is_default: true,
+          state_province: "",
+          address_line2: "",
+        },
+        { headers: { Authorization: `Token ${token}` } }
+      );
 
-    placeOrderMutation.mutate({
-      shipping_address_id: addressId,
-      billing_address_id: addressId,
-      payment_method: formData.payment_method,
-      notes: "",
-      coupon_code: "",
-    });
+      const shippingId = shippingRes.data.id;
+
+      // Step 2: Add billing address
+      const billingRes = await axiosInstance.post(
+        "/account/addresses/",
+        {
+          ...formData,
+          label: "Billing Address",
+          address_type: "billing",
+          is_default: true,
+          state_province: "",
+          address_line2: "",
+        },
+        { headers: { Authorization: `Token ${token}` } }
+      );
+
+      const billingId = billingRes.data.id;
+
+      // Step 3: Place order
+      placeOrderMutation.mutate({
+        shipping_address_id: shippingId,
+        billing_address_id: billingId,
+        payment_method: formData.payment_method,
+        notes: "",
+        coupon_code: "",
+      });
+    } catch (error) {
+      toast.error("Failed to add address.");
+    }
   };
 
   if (isLoading) return <Spinner />;

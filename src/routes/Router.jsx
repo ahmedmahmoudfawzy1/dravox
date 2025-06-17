@@ -15,6 +15,8 @@ import Settings from "../pages/profile/settings/Settings";
 import ProtectedRoute from "./ProtectedRoute";
 import CheckoutPage from "../pages/checkout/Checkout";
 
+import ThankYouPage from "../pages/thankyou/ThankYou";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CheckoutPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/thank-you",
+        element: (
+          <ProtectedRoute>
+            <ThankYouPage />
           </ProtectedRoute>
         ),
       },
