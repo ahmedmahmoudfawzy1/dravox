@@ -2,16 +2,16 @@ import { Link, useParams } from "react-router-dom";
 import { useAddToCart } from "../../hooks/useCart";
 import { useProducts } from "../../hooks/useProducts";
 import Spinner from "../Loader/Spinner";
-
-import { FaShoppingCart } from "react-icons/fa";
 import WishlistBtn from "../wishlistBtn/WishlistBtn";
 import useAuthStore from "../../store/authStore";
 import { useWishlistStore } from "../../store/wishlistStore";
 import { useToggleWishlist } from "../../hooks/useWishlist";
+import CartButton from "../cartButton/CartButton";
 
 export default function ProductCard({ product }) {
   const { slug } = useParams();
   const { data, isLoading: productsLoading } = useProducts();
+
   const { mutate: addItemToCart, isLoading } = useAddToCart();
 
   const { token } = useAuthStore();
@@ -58,18 +58,6 @@ export default function ProductCard({ product }) {
               >
                 Learn More
               </Link>
-              <button
-                onClick={() =>
-                  addItemToCart({
-                    product_id: product.id,
-                    color_variant_id: 1,
-                    quantity: 1,
-                  })
-                }
-                className="bg-primary-color border transition-all duration-500 border-primary-color hover:bg-transparent hover:border-white text-white p-2 rounded-md"
-              >
-                <FaShoppingCart />
-              </button>
             </div>
           </div>
         </div>

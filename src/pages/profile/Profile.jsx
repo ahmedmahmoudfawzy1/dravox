@@ -1,3 +1,4 @@
+import { Outlet, useLocation } from "react-router-dom";
 import {
   FaUser,
   FaShoppingCart,
@@ -6,7 +7,7 @@ import {
   FaBox,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAuthStore from "../../store/authStore";
 import Orders from "../../components/orders/Orders";
 import Cart from "../../components/cart/Cart";
@@ -16,7 +17,14 @@ import Settings from "./settings/Settings";
 
 export default function ProfilePage() {
   const { user, logout } = useAuthStore();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("orders");
+
+  useEffect(() => {
+    if (location.pathname.includes("/profile/order/")) {
+      setActiveTab(null);
+    }
+  }, [location.pathname]);
 
   const tabs = [
     { id: "account", label: "Account", icon: <FaUser /> },
@@ -39,15 +47,15 @@ export default function ProfilePage() {
       case "settings":
         return <Settings />;
       default:
-        return <div>Account</div>;
+        return <Outlet />;
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen pt-[75px]">
+    <div className="flex flex-col md:flex-row min-h-screen pt-[75px] overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-full md:w-[250px] bg-secondary-color text-white p-4 md:p-6 shadow-md h-auto md:h-screen fixed md:static top-0 left-0 ">
-        <div className="mb-8 hidden md:block">
+      <aside className="fixed top-[75px] left-0 w-full md:w-[250px] bg-secondary-color text-white p-2 md:p-6 shadow-md z-50 flex md:flex-col items-center md:items-start gap-4 overflow-x-auto md:overflow-y-auto md:h-[calc(100vh-75px)]">
+        <div className="hidden md:block mb-6">
           <h2 className="text-lg font-semibold">
             Welcome back,
             <br />
@@ -57,12 +65,12 @@ export default function ProfilePage() {
           </h2>
         </div>
 
-        <ul className="flex md:flex-col gap-4 justify-around md:justify-start text-sm">
+        <ul className="flex md:flex-col gap-4 w-full justify-around md:justify-start text-sm">
           {tabs.map((tab) => (
             <li
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`cursor-pointer flex items-center gap-2 py-2 px-3 rounded-md transition ${
+              className={`cursor-pointer flex items-center md:gap-2 justify-center md:justify-start py-2 px-3 rounded-md transition w-full md:w-auto ${
                 activeTab === tab.id
                   ? "bg-primary-color text-white"
                   : "text-dark-gray hover:text-white hover:bg-[#1a1a1a]"
@@ -75,7 +83,7 @@ export default function ProfilePage() {
 
           <li
             onClick={logout}
-            className="cursor-pointer flex items-center gap-2 py-2 px-3 rounded-md  text-dark-gray hover:text-red-500"
+            className="cursor-pointer flex items-center justify-center md:justify-start gap-2 py-2 px-3 rounded-md text-dark-gray hover:text-red-500 w-full md:w-auto"
           >
             <FaSignOutAlt />
             <span className="hidden md:inline">Logout</span>
@@ -84,7 +92,7 @@ export default function ProfilePage() {
       </aside>
 
       {/* Main content */}
-      <main className="mt-[70px] md:mt-0  flex-1 p-4 overflow-y-auto">
+      <main className="mt-[125px] md:mt-0 md:ml-[250px] flex-1 h-[calc(100vh-75px)] overflow-y-auto p-4">
         {renderContent()}
       </main>
     </div>

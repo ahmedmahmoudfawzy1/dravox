@@ -16,6 +16,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import CheckoutPage from "../pages/checkout/Checkout";
 
 import ThankYouPage from "../pages/thankyou/ThankYou";
+import SingleOrder from "../pages/singleOrder/SingleOrder";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
           {
             path: "order",
             element: <Order />,
+          },
+          {
+            path: "order/:orderId",
+            element: <SingleOrder />,
           },
           {
             path: "traking",

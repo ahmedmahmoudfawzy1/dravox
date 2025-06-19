@@ -1,16 +1,29 @@
-import { data, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetSingleProduct } from "../../hooks/useProducts";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaShoppingCart } from "react-icons/fa";
 import Spinner from "../../components/Loader/Spinner";
 import { useState, useEffect } from "react";
-import { CiDesktopMouse1 } from "react-icons/ci";
+import { useAddToCart } from "../../hooks/useCart";
+import { toast } from "react-toastify";
+import useCurrencyStore from "../../store/currencyStore";
+
 
 export default function SingleProduct() {
   const { slug } = useParams();
-  const { data: product, isLoading, error } = useGetSingleProduct(slug);
-  console.log(product);
-
+  const { mutate: addItemToCart, isPending } = useAddToCart();
+  const { currency } = useCurrencyStore();
   const [selectedColor, setSelectedColor] = useState(null);
+
+  const { data: product, isLoading, error } = useGetSingleProduct(slug);
+
+  const handleAddToCart = () => {
+    if (!selectedColor) return toast.error("Please select a color");
+    addItemToCart({
+      product_id: product.id,
+      color_variant_id: selectedColor.id,
+      quantity: 1,
+    });
+  };
 
   useEffect(() => {
     if (product?.color_variants?.length > 0) {
@@ -24,6 +37,7 @@ export default function SingleProduct() {
         <Spinner />
       </div>
     );
+
   if (error)
     return <p className="text-center text-red-500">Something went wrong</p>;
 
@@ -47,12 +61,14 @@ export default function SingleProduct() {
           </p>
 
           <div>
-            {product.prices.map((price, i) => (
-              <p key={i} className="text-xl">
-                <span className="font-semibold">{price.symbol}</span>
-                {price.amount}
-              </p>
-            ))}
+            {product.prices
+              .filter((price) => price.currency === currency)
+              .map((price, i) => (
+                <p key={i} className="text-xl">
+                  <span className="font-semibold">{price.symbol}</span>
+                  {price.amount}
+                </p>
+              ))}
           </div>
 
           <p className="text-sm">
@@ -64,23 +80,6 @@ export default function SingleProduct() {
               <span className="text-red-400">Out of Stock</span>
             )}
           </p>
-
-          {product.features?.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Features:</h2>
-              <ul className="list-disc list-inside text-sm space-y-1">
-                {product.features.map((feature, idx) => (
-                  <li key={idx}>
-                    {feature.localized_title || feature.title}
-                    <ul className="list-disc list-inside text-sm space-y-1">
-                      <li>{feature.description}</li>
-                      <li>{feature.icon ? feature.icon : "Icon"}</li>
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {product.color_variants?.length > 0 && (
             <div>
@@ -102,6 +101,23 @@ export default function SingleProduct() {
               </div>
             </div>
           )}
+
+          <div className="pt-6 flex justify-start">
+            <button
+              onClick={handleAddToCart}
+              disabled={!selectedColor || isPending}
+              className="flex items-center gap-2 bg-primary-color hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isPending ? (
+                "Adding..."
+              ) : (
+                <>
+                  <FaShoppingCart />
+                  Add to Cart
+                </>
+              )}
+            </button>
+          </div>
 
           <div className="pt-4">
             <p className="text-sm text-gray-400">

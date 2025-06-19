@@ -41,7 +41,7 @@
 
 
 
-// api/cart.js
+
 import axiosInstance from "./axionInstance";
 
 export const addToCart = (item, token) =>

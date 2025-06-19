@@ -15,7 +15,7 @@ export default function WishlistBtn({ product }) {
     toggleWishlist(
       {
         productId: product.id,
-        colorVariantId: 1,
+        colorVariantId: product.color_variant?.id,
         token,
       },
       {

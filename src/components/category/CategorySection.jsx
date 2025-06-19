@@ -58,6 +58,7 @@ export default function CategorySection() {
                 key={cat.slug}
                 description={cat.description}
                 name={cat.name}
+                image={cat.category_image}
               />
             ))
           )}

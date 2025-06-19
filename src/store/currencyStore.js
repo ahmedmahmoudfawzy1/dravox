@@ -1,9 +1,9 @@
 
-import { create } from 'zustand';
+import { create } from "zustand";
 
 const useCurrencyStore = create((set) => ({
-    currency: 'USD',
-    setCurrency: (newCurrency) => set({ currency: newCurrency }),
+    currency: "USD",
+    setCurrency: (code) => set({ currency: code }),
 }));
 
 export default useCurrencyStore;

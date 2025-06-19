@@ -4,13 +4,12 @@ import { FaGoogle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import useAuthStore from "../../store/authStore";
 import { toast } from "react-toastify";
-export default function GoogleAuth({setShowSignupModal}) {
+export default function GoogleAuth() {
   const { userLogin } = useAuthStore();
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
         const accessToken = tokenResponse.access_token;
-
 
         const res = await axiosInstance.post("/account/auth/google/", {
           access_token: accessToken,
@@ -20,7 +19,6 @@ export default function GoogleAuth({setShowSignupModal}) {
           Cookies.set("token", res.data.token, { expires: 7 });
           userLogin(res.data.user, res.data.token);
           toast.success("Logged in successfully with Google");
-          setShowSignupModal(false);
         } else {
           console.warn("Google login response missing token:", res.data);
           toast.error("Login with Google failed: No token in response");
