@@ -11,6 +11,7 @@ export const useCreateOrder = () => {
 };
 
 
+ 
 export const useGetOrders = (token) => {
     return useQuery({
         queryKey: ["orders"],
@@ -21,6 +22,7 @@ export const useGetOrders = (token) => {
         })
     });
 };
+
 
 
 export const useGetSingleOrder = (orderId, token) => {
@@ -35,6 +37,7 @@ export const useGetSingleOrder = (orderId, token) => {
         enabled: !!token && !!orderId,
     });
 };
+
 
 
 
@@ -78,10 +81,11 @@ export const useReplaceOrder = (token) => {
 export const useDeleteOrder = (token) => {
     return useMutation({
         mutationFn: (orderId) =>
-            axiosInstance.delete(`/orders/orders/${orderId}/`, {
+            axiosInstance.delete(`/orders/cart/items/${orderId}/`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },
             }),
     });
 };
+

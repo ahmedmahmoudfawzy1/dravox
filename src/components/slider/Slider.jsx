@@ -46,7 +46,7 @@ export default function Slider() {
       {slidesData.map((slide) => (
         <SwiperSlide key={slide.id}>
           <div
-            className="relative min-h-[80vh] bg-cover bg-center"
+            className="relative  bg-cover bg-center"
             // style={{ backgroundImage: `url(${slide.image})` }}
           >
             <img src={slide.image} alt="" />

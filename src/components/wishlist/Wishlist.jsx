@@ -13,9 +13,8 @@ export default function WishlistPage() {
   const { mutate: toggleWishlist, isLoading } = useToggleWishlist();
 
   const handleRemove = (product) => {
-    console.log(product);
     toggleWishlist(
-    {
+      {
         productId: product.id,
         colorVariantId: product.color_variant?.id,
         token,
@@ -25,7 +24,8 @@ export default function WishlistPage() {
           removeWishlistItem(product.id);
           toast.info("Removed from wishlist");
         },
-        onError: () => {
+        onError: (err) => {
+          console.log(err);
           toast.error("Error removing from wishlist");
         },
       }

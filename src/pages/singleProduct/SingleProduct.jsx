@@ -7,7 +7,6 @@ import { useAddToCart } from "../../hooks/useCart";
 import { toast } from "react-toastify";
 import useCurrencyStore from "../../store/currencyStore";
 
-
 export default function SingleProduct() {
   const { slug } = useParams();
   const { mutate: addItemToCart, isPending } = useAddToCart();
@@ -15,6 +14,7 @@ export default function SingleProduct() {
   const [selectedColor, setSelectedColor] = useState(null);
 
   const { data: product, isLoading, error } = useGetSingleProduct(slug);
+  console.log(product)
 
   const handleAddToCart = () => {
     if (!selectedColor) return toast.error("Please select a color");
@@ -103,20 +103,26 @@ export default function SingleProduct() {
           )}
 
           <div className="pt-6 flex justify-start">
-            <button
-              onClick={handleAddToCart}
-              disabled={!selectedColor || isPending}
-              className="flex items-center gap-2 bg-primary-color hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isPending ? (
-                "Adding..."
-              ) : (
-                <>
-                  <FaShoppingCart />
-                  Add to Cart
-                </>
-              )}
-            </button>
+            {product.is_in_stock === false ? (
+              <button disabled className="flex items-center gap-2  hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                Out Of stock
+              </button>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                disabled={!selectedColor || isPending}
+                className="flex items-center gap-2 bg-primary-color hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isPending ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    <FaShoppingCart />
+                    Add to Cart
+                  </>
+                )}
+              </button>
+            )}
           </div>
 
           <div className="pt-4">

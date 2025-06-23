@@ -7,7 +7,6 @@ import { FaPlus, FaMinus, FaTrashAlt } from "react-icons/fa";
 export default function CartPage() {
   const { data: cartItems = [], isLoading, error } = useCart();
   const { mutate: removeItem } = useRemoveFromCart();
-
   if (isLoading) return <Spinner />;
   if (error) return <p>Error loading cart</p>;
 
