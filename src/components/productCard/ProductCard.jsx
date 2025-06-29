@@ -1,23 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAddToCart } from "../../hooks/useCart";
 import { useProducts } from "../../hooks/useProducts";
 import Spinner from "../Loader/Spinner";
 import WishlistBtn from "../wishlistBtn/WishlistBtn";
-import useAuthStore from "../../store/authStore";
-import { useWishlistStore } from "../../store/wishlistStore";
-import { useToggleWishlist } from "../../hooks/useWishlist";
-import CartButton from "../cartButton/CartButton";
 
-export default function ProductCard({ product }) {
-  const { slug } = useParams();
-  const { data, isLoading: productsLoading } = useProducts();
 
-  const { mutate: addItemToCart, isLoading } = useAddToCart();
+export default function ProductCard() {
+  const { data } = useProducts();
 
-  const { token } = useAuthStore();
-  const { wishlist, addWishlistItem, removeWishlistItem } = useWishlistStore();
-  const { mutate: toggleWishlist } = useToggleWishlist();
-
+  const { isLoading } = useAddToCart();
+  
   if (isLoading) return <Spinner />;
 
   return (

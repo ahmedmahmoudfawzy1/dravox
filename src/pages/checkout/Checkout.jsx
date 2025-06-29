@@ -95,7 +95,7 @@ export default function CheckoutPage() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="container py-10 text-white max-w-3xl mx-auto font-Inter">
+    <div className="container py-24 text-white max-w-3xl mx-auto font-Inter">
       <h2 className="text-4xl font-bold mb-8 text-center text-primary-color">
         Checkout
       </h2>

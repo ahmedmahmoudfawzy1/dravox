@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 import { FaStar } from "react-icons/fa";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
@@ -40,62 +39,52 @@ const reviews = [
 
 const CustomerReviews = () => {
   return (
-    <section className="py-12 px-4 bg-[#0B0B0B] text-white relative">
-      <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-center text-primary-color">
+    <section className="relative bg-gradient-to-br from-[#0b0b0b] via-[#1f1f1f] to-[#0b0b0b] text-white py-16 px-4 overflow-hidden">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-[#FF1E1E] to-[#D30000] mb-12">
         What Our Customers Say
       </h2>
 
       <Swiper
         modules={[Navigation, Autoplay]}
-        spaceBetween={20}
-        slidesPerView={1}
         loop={true}
-        autoplay={{ delay: 4000 }}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        spaceBetween={30}
+        slidesPerView={1}
+        breakpoints={{
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
         navigation={{
           nextEl: ".swiper-button-next-custom",
           prevEl: ".swiper-button-prev-custom",
         }}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
       >
         {reviews.map((review) => (
           <SwiperSlide key={review.id}>
-            <div className="bg-[#2F2D2D] p-6 rounded-2xl shadow-lg h-[250px] flex flex-col justify-between">
-              <div className="mb-4">
+            <div className="bg-[#1a1a1a] border border-[#FF1E1E]/30 shadow-[0_0_20px_#FF1E1E20] p-6 rounded-2xl h-[250px] flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02]">
+              <div className="overflow-hidden">
                 <div className="flex gap-1 text-yellow-400 mb-2">
                   {Array.from({ length: review.stars }).map((_, i) => (
-                    <FaStar key={i} />
+                    <FaStar key={i} size={16} />
                   ))}
                 </div>
-                <h4 className="text-lg font-bold text-white">
-                  {review.userName}
-                </h4>
-                <p className="text-sm text-gray-300 mt-2">{review.comment}</p>
+                <h4 className="text-lg font-semibold mb-1">{review.userName}</h4>
+                <p className="text-sm text-gray-300 line-clamp-3">
+                  {review.comment}
+                </p>
               </div>
 
-              <div className="flex items-center gap-2 mt-6 border-t border-gray-600 pt-4">
-                <span className="text-sm text-white font-medium">
-                  {review.productName}
-                </span>
+              <div className="mt-6 pt-4 border-t border-[#444] text-sm text-gray-400 italic">
+                {review.productName}
               </div>
             </div>
           </SwiperSlide>
+
         ))}
       </Swiper>
 
-      <div className="swiper-button-prev-custom absolute left-2 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-        <div className="bg-primary-color p-2 rounded-full hover:bg-white hover:text-primary-color transition">
-          <FaArrowLeft />
-        </div>
-      </div>
-      <div className="swiper-button-next-custom absolute right-2 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-        <div className="bg-primary-color p-2 rounded-full hover:bg-white hover:text-primary-color transition">
-          <FaArrowRight />
-        </div>
-      </div>
+
+
     </section>
   );
 };

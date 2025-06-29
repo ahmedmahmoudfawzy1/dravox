@@ -1,43 +1,5 @@
 
 
-// import axiosInstance from "./axionInstance";
-
-// export const addToCart = async (item, token) => {
-
-//     console.log(item)
-
-//     return await axiosInstance.post("/orders/cart/add/", item, {
-//         headers: {
-//             "Content-Type": "application/json",
-//             Accept: "application/json",
-//             Authorization: `Token ${token}`
-//         },
-//     }).then((res) => res.data);
-// };
-
-
-// export const getCartProducts = async (token) => {
-//     const res = await axiosInstance.get("/orders/cart/", {
-//         headers: {
-//             Authorization: `Token ${token}`,
-//         },
-//     });
-
-//     return res.data;
-// };
-
-
-// export const removeFromCart = async (item_id, token) => {
-//     const res = await axiosInstance.delete(`/orders/cart/items/${item_id}/`, {
-//         headers: {
-//             Authorization: `Token ${token}`,
-//             "Content-Type": "application/json",
-//             Accept: "application/json",
-//         },
-//     });
-//     return res.data;
-// };
-
 
 
 
@@ -53,8 +15,17 @@ export const getCartProducts = (token) =>
     axiosInstance.get("/orders/cart/", {
         headers: { Authorization: `Token ${token}` },
     }).then(res => res.data.items);
-
+// DELETE /api/v0.1/orders/cart/items/{id}/
 export const removeFromCart = (itemId, token) =>
-    axiosInstance.delete(`/orders/cart/remove/${itemId}/`, {
+    axiosInstance.delete(`/orders/cart/items/${itemId}/`, {
         headers: { Authorization: `Token ${token}` },
     }).then(res => res.data);
+
+export const updateCartItemQuantity = (itemId, quantity, token) =>
+    axiosInstance.patch(
+        `/orders/cart/items/${itemId}/`,
+        { quantity },
+        {
+            headers: { Authorization: `Token ${token}` },
+        }
+    ).then(res => res.data);

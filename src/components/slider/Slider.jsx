@@ -1,73 +1,79 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Parallax, Pagination, Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import bannerImageOne from "../../assets/images/banner-1.webp";
-import bannerImageTwo from "../../assets/images/banner-2.webp";
-import bannerImageThree from "../../assets/images/banner-3.webp";
+import { useEffect, useRef, useState } from "react";
+import banner1 from "../../assets/images/banner-1.webp";
+import banner2 from "../../assets/images/banner-2.webp";
+import banner3 from "../../assets/images/banner-3.webp";
+
+const slides = [
+  { id: 0, src: banner1, alt: "Banner 1" },
+  { id: 1, src: banner2, alt: "Banner 2" },
+  { id: 2, src: banner3, alt: "Banner 3" },
+];
+
 export default function Slider() {
-  const slidesData = [
-    {
-      id: 1,
-      title: "Slide 1",
-      subtitle: "Subtitle 1",
-      description:
-        "Description 1Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore maiores iste odio a facere modi dignissimos illo molestiae alias, magni earum beatae officia blanditiis dolore officiis labore dolor! Quod, adipisci.",
-      image: `${bannerImageOne}`,
-    },
-    {
-      id: 2,
-      title: "Slide 2",
-      subtitle: "Subtitle 2",
-      description: "Description  ",
-      image: `${bannerImageTwo}`,
-    },
-    {
-      id: 3,
-      title: "Slide 3",
-      subtitle: "Subtitle 3",
-      description:
-        "Description 3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore maiores iste odio a facere modi dignissimos illo molestiae alias, magni earum beatae officia blanditiis dolore officiis labore dolor! Quod, adipisci.",
-      image: `${bannerImageThree}`,
-    },
-  ];
+  const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
+  const length = slides.length;
+
+  const goTo = (idx) => {
+    const wrappedIndex = (idx + length) % length;
+    setCurrent(wrappedIndex);
+  };
+
+  const next = () => goTo(current + 1);
+
+  useEffect(() => {
+    startAuto();
+    return () => clearInterval(intervalRef.current);
+  }, [current]);
+
+  const startAuto = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(next, 3000); // autoplay every 3s
+  };
 
   return (
-    <Swiper
-      speed={600}
-      pagination={{ clickable: true }}
-      parallax={true}
-      modules={[Autoplay]}
-      className="mySwiper"
-      loop={true}
-      autoplay={{ delay: 3000, disableOnInteraction: false }}
-    >
-      {slidesData.map((slide) => (
-        <SwiperSlide key={slide.id}>
-          <div
-            className="relative  bg-cover bg-center"
-            // style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <img src={slide.image} alt="" />
-            <div className=""></div>
-            {/* <div className="relative z-10 p-8 text-white min-h-[80vh] flex flex-col justify-center items-start">
-              <h2
-                className="text-4xl font-bold mb-2"
-                data-swiper-parallax="-300"
-              >
-                {slide.title}
-              </h2>
-              <h4 className="text-xl mb-2 " data-swiper-parallax="-200">
-                {slide.subtitle}
-              </h4>
-              <p data-swiper-parallax="-100" className="w-[50%]">
-                {slide.description}
-              </p>
-            </div> */}
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="">
+      <div className="relative w-[80%] h-[50vh] mx-auto flex items-center justify-center overflow-hidden">
+        {slides.map((slide, idx) => {
+          const offset = ((idx - current) + length) % length;
+          let translateX = 0;
+          let scale = 1;
+          let opacity = 1;
+          let zIndex = 0;
+          let blur = "none";
+
+          if (offset === 0) {
+            translateX = 0;
+            scale = 1;
+            opacity = 1;
+            zIndex = 10;
+          } else if (offset === 1 || offset === length - 1) {
+            translateX = offset === 1 ? 60 : -60;
+            scale = 0.9;
+            opacity = 0.4;
+            zIndex = 5;
+            blur = "blur(2px)";
+          } else {
+            opacity = 0;
+            zIndex = 0;
+          }
+
+          return (
+            <img
+              key={slide.id}
+              src={slide.src}
+              alt={slide.alt}
+              className="absolute w-2/3 max-w-3xl h-auto object-contain transition-all duration-700 rounded-xl shadow-lg"
+              style={{
+                transform: `translateX(${translateX}%) scale(${scale})`,
+                opacity,
+                zIndex,
+                filter: blur,
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }

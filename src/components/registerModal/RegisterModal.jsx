@@ -34,7 +34,6 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
   const signUpMutation = useMutation({
     mutationFn: (data) => signUpUser(data),
     onSuccess: (res) => {
-      console.log(res.data.token, res.data.user);
       userLogin(res.data.user, res.data.token);
       toast.success(`Welcome ${res.data.user.username}`);
       setShowSignupModal(false);
@@ -54,8 +53,14 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
 
   return (
     showSignupModal && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-[#0b0b0b] p-6 rounded-lg shadow-md w-80 text-white">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        onClick={() => setShowSignupModal(false)}
+      >
+        <div className="bg-[#0b0b0b] p-6 rounded-lg shadow-md w-80 text-white"
+
+          onClick={e => e.stopPropagation()}
+
+        >
           <h2 className="text-lg font-bold mb-4">Sign Up</h2>
           <GoogleAuth setShowSignupModal={setShowSignupModal} />
           <form onSubmit={handleFormSubmit}>
@@ -109,10 +114,36 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
             />
             <button
               type="submit"
-              className="w-full bg-[#ff1e1e] text-white py-2 rounded"
+              disabled={signUpMutation.isPending}
+              className={`w-full text-white py-2 rounded flex items-center justify-center transition-colors duration-300 ${signUpMutation.isPending ? "bg-transparent border border-gray-400" : "bg-[#ff1e1e]"
+                }`}
             >
-              Sign Up
+              {signUpMutation.isPending ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  />
+                </svg>
+              ) : (
+                "Sign Up"
+              )}
             </button>
+
           </form>
 
           <button
