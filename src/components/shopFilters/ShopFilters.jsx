@@ -1,49 +1,53 @@
-// components/shopFilters/ShopFilters.jsx
 import { useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import Select from "react-select";
 
 const categories = [
   "Keyboard",
-  "Mause",
+  "Mouse",
   "Headphone",
-  "HeadPhone Stand",
+  "Headphone Stand",
   "Case",
-  "converters",
+  "Converters",
   "Fan RGB",
 ];
 
 export default function ShopFilters() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const checkInp = useRef();
-  //   console.log(checkInp.current.value);
+  const [priceSort, setPriceSort] = useState("");
+
+  const primaryColor = "#FF1E1E";
+
   const priceOptions = [
     { value: "ltoh", label: "Low to High" },
     { value: "htol", label: "High to Low" },
   ];
-  const [priceSort, setPriceSort] = useState("");
-  const primaryColor = "#FF1E1E";
 
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      borderColor: state.isFocused ? primaryColor : "#ccc",
+      backgroundColor: "#0b0b0b",
+      borderColor: state.isFocused ? primaryColor : "#444",
       boxShadow: state.isFocused ? `0 0 0 1px ${primaryColor}` : "none",
-      "&:hover": {
-        borderColor: primaryColor,
-      },
+      color: "white",
+      transition: "all 0.3s ease",
     }),
-    option: (base, state) => {
-      console.log(base);
-      return {
-        ...base,
-        backgroundColor: state.isFocused ? "#ffe5e5" : "white",
-        color: "#000",
-        "&:hover": {
-          backgroundColor: "#ffd6d6",
-        },
-      };
-    },
+    menu: (base) => ({
+      ...base,
+      backgroundColor: "#1a1a1a",
+      color: "#fff",
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused ? "#ff1e1e" : "#1a1a1a",
+      color: state.isFocused ? "#000" : "#fff",
+      transition: "background-color 0.2s ease",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
   };
 
   const handleCategoryChange = (category) => {
@@ -55,33 +59,45 @@ export default function ShopFilters() {
   };
 
   return (
-    <aside className="hidden lg:grid col-span-12 lg:col-span-3  sticky top-24 self-start  p-4 rounded bg-main-color">
-      <h2 className="text-lg font-semibold mb-2">Sort by Price</h2>
+    <aside className="hidden lg:grid col-span-12 lg:col-span-3 sticky top-24 self-start p-6 rounded-2xl bg-[#1a1a1a] shadow-lg shadow-primary-color/10">
+      {/* Price Sort */}
+      <h2 className="text-xl font-bold mb-4 text-primary-color border-b border-gray-700 pb-2">
+        Sort by Price
+      </h2>
       <Select
         options={priceOptions}
         value={priceOptions.find((option) => option.value === priceSort)}
         onChange={(selectedOption) => setPriceSort(selectedOption.value)}
-        placeholder="Price"
-        className="mb-2 text-sm "
-        classNamePrefix="react-select"
+        placeholder="Choose..."
+        className="mb-6 text-sm"
         styles={customStyles}
       />
-      <h2 className="text-lg font-semibold ">Filter by Category</h2>
-      <div className="flex flex-col gap-2 mb-6">
+
+      {/* Category Filters */}
+      <h2 className="text-xl font-bold mb-4 text-primary-color border-b border-gray-700 pb-2">
+        Filter by Category
+      </h2>
+      <div className="flex flex-col gap-4">
         {categories.map((cat) => (
-          <label key={cat} className="flex items-center gap-2 cursor-pointer mt-4">
+          <label
+            key={cat}
+            className="flex items-center gap-3 cursor-pointer group"
+          >
             <input
               type="checkbox"
               className="peer hidden"
-              id="customCheckbox"
               checked={selectedCategories.includes(cat)}
               onChange={() => handleCategoryChange(cat)}
               ref={checkInp}
             />
-            <div className="w-5 h-5 border-2 border-#A1A1A1 rounded-sm peer-checked:bg-primary-color peer-checked:border-white flex items-center justify-center transition">
-              {selectedCategories.includes(cat) ? <FaCheck /> : null}
+            <div className="w-5 h-5 border-2 border-gray-500 rounded-sm flex items-center justify-center peer-checked:bg-primary-color peer-checked:border-primary-color transition-all duration-200 group-hover:border-white">
+              {selectedCategories.includes(cat) && (
+                <FaCheck size={12} className="text-white" />
+              )}
             </div>
-            <span>{cat}</span>
+            <span className="text-sm text-gray-200 group-hover:text-white transition">
+              {cat}
+            </span>
           </label>
         ))}
       </div>

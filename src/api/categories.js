@@ -1,5 +1,3 @@
-
-
 import axiosInstance from "./axionInstance";
 
 export const getAllCategories = async () => {
@@ -7,10 +5,7 @@ export const getAllCategories = async () => {
     return data.results;
 };
 
-
-
-
-export const singleCategory = () => {
+export const singleCategory = (slug) => {
     const { data } = axiosInstance.get(`/categories/${slug}/`)
     return data.results;
 }

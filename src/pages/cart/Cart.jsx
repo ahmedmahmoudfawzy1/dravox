@@ -17,7 +17,11 @@ export default function CartPage() {
   const { mutate: removeItem } = useRemoveFromCart();
   const { mutate: updateQuantity, isLoading: isUpdating } = useUpdateCartItemQuantity();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return (
+    <div className="pt-24">
+      <Spinner />
+    </div>
+  );
   if (error) return <p className="text-center text-red-500 mt-10">Error loading cart</p>;
 
   const total = cartItems.reduce(
