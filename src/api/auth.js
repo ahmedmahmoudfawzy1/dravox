@@ -1,5 +1,6 @@
 
 
+import axios from "axios";
 import useAuthStore from "../store/authStore";
 import axiosInstance from "./axionInstance";
 import Cookies from "js-cookie"
@@ -52,3 +53,15 @@ export const logoutUser = async () => {
         console.error("Logout Error:", error);
     }
 };
+
+
+export const getUserAccount = (token) => {
+    return axiosInstance.get('/account/user/me/', {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    }).then((res) => {
+        // console.log(res.data)
+        return res.data
+    })
+}

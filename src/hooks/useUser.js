@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUserProfile } from '../api/auth';
+import { getUserAccount, getUserProfile } from '../api/auth';
 
 export const useUser = () => {
     return useQuery({
@@ -7,3 +7,12 @@ export const useUser = () => {
         queryFn: getUserProfile,
     });
 };
+
+
+export const useGetUserDetails = (token) => {
+    return useQuery({
+        queryKey: ['userDetails'],
+        queryFn: () => getUserAccount(token),
+        enabled: !!token
+    })
+}

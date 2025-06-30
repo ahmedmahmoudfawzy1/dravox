@@ -17,6 +17,7 @@ import CheckoutPage from "../pages/checkout/Checkout";
 
 import ThankYouPage from "../pages/thankyou/ThankYou";
 import SingleOrder from "../pages/singleOrder/SingleOrder";
+import SingleCategory from "../pages/singleCategory/SingleCategory";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "shop/:slug",
         element: <SingleProduct />,
+      },
+      {
+        path: "singleCategory/:slug",
+        element: <SingleCategory />,
       },
       {
         path: "contact",
