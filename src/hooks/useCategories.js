@@ -11,10 +11,10 @@ export const useCategories = () => {
 }
 export const useSingleCategorie = (slug) => {
     return useQuery({
-        queryKey: ["categorie"],
+        queryKey: ["categorie", slug],
         queryFn: () => getSingleCategory(slug),
-    })
-}
+    });
+};
 
 
 

@@ -5,7 +5,8 @@ export const getAllCategories = async () => {
     return data.results;
 };
 
-export const getSingleCategory = (slug) => {
-    const { data } = axiosInstance.get(`/categories/${slug}/`)
-    return data.results;
-}
+export const getSingleCategory = async (slug) => {
+    const { data } = await axiosInstance.get(`/categories/${slug}/`)
+    console.log(data)
+    return data
+};
