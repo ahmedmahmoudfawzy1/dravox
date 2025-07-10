@@ -1,6 +1,6 @@
 
 import { useQuery } from '@tanstack/react-query';
-import { getAllCategories } from '../api/categories';
+import { getAllCategories, getSingleCategory } from '../api/categories';
 
 
 export const useCategories = () => {
@@ -11,7 +11,7 @@ export const useCategories = () => {
 }
 export const useSingleCategorie = (slug) => {
     return useQuery({
-        queryKey: ["categorie", slug],
+        queryKey: ["singleCategorie"],
         queryFn: () => getSingleCategory(slug),
     });
 };

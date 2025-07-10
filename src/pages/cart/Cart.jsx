@@ -22,7 +22,7 @@ export default function CartPage() {
       <Spinner />
     </div>
   );
-  if (error) return <p className="text-center text-red-500 mt-10">Error loading cart</p>;
+  if (error) return <p className="text-center text-red-500 mt-10 pt-[100px]">Error loading cart</p>;
 
   const total = cartItems.reduce(
     (acc, item) => acc + parseFloat(item.subtotal),
@@ -53,7 +53,7 @@ export default function CartPage() {
                 key={item.id}
                 className="flex flex-col md:flex-row items-center bg-[#121212] rounded-2xl overflow-hidden shadow-md border border-[#2c2c2c]"
               >
-                {/* Thumbnail */}
+               
                 <div className="w-full md:w-32 h-32 md:h-full overflow-hidden bg-[#1a1a1a]">
                   <img
                     src={item.color_variant.thumbnail_url}
@@ -62,7 +62,7 @@ export default function CartPage() {
                   />
                 </div>
 
-                {/* Info */}
+               
                 <div className="flex-1 px-6 py-4 w-full">
                   <h4 className="text-xl font-semibold mb-2">{item.product.name}</h4>
                   <div className="flex gap-2 items-center mb-2">
@@ -114,7 +114,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Total & Remove */}
+               
                 <div className="flex flex-col items-center px-6 py-4 gap-2">
                   <p className="text-primary-color font-bold text-lg">
                     {item.subtotal}
@@ -130,7 +130,7 @@ export default function CartPage() {
             ))}
           </div>
 
-          {/* Checkout Section */}
+         
           <div className="mt-12 flex flex-col md:flex-row justify-between items-center bg-[#181818] p-6 rounded-xl border border-[#2a2a2a] shadow-inner">
             <h3 className="text-2xl font-semibold mb-4 md:mb-0">Total:</h3>
             <span className="text-3xl text-primary-color font-bold">

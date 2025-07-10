@@ -14,7 +14,6 @@ export default function SingleProduct() {
   const [selectedColor, setSelectedColor] = useState(null);
 
   const { data: product, isLoading, error } = useGetSingleProduct(slug);
-  console.log(product)
 
   const handleAddToCart = () => {
     if (!selectedColor) return toast.error("Please select a color");
@@ -71,10 +70,11 @@ export default function SingleProduct() {
               ))}
           </div>
 
+
           <p className="text-sm">
-            {product.is_in_stock ? (
+            {selectedColor?.stock_quantity > 0 ? (
               <span className="text-green-400 flex items-center gap-1">
-                <FaCheckCircle /> In Stock ({product.total_stock})
+                <FaCheckCircle /> In Stock ({selectedColor.stock_quantity} available)
               </span>
             ) : (
               <span className="text-red-400">Out of Stock</span>
@@ -89,11 +89,10 @@ export default function SingleProduct() {
                   <button
                     key={variant.id}
                     onClick={() => setSelectedColor(variant)}
-                    className={`w-4 h-4 rounded-full border-2 ${
-                      selectedColor?.id === variant.id
-                        ? "border-white scale-110"
-                        : "border-gray-500"
-                    } transition-all`}
+                    className={`w-4 h-4 rounded-full border-2 ${selectedColor?.id === variant.id
+                      ? "border-white scale-110"
+                      : "border-gray-500"
+                      } transition-all`}
                     style={{ backgroundColor: variant.hex_code }}
                     title={variant.localized_color_name}
                   ></button>
@@ -103,8 +102,11 @@ export default function SingleProduct() {
           )}
 
           <div className="pt-6 flex justify-start">
-            {product.is_in_stock === false ? (
-              <button disabled className="flex items-center gap-2  hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+            {selectedColor?.stock_quantity === 0 ? (
+              <button
+                disabled
+                className="flex items-center gap-2 hover:bg-transparent border border-primary-color hover:border-white transition-all duration-300 text-white px-6 py-2 rounded-lg font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Out Of stock
               </button>
             ) : (

@@ -1,9 +1,5 @@
 
 
-
-
-
-
 import axiosInstance from "./axionInstance";
 
 export const addToCart = (item, token) =>
@@ -15,7 +11,7 @@ export const getCartProducts = (token) =>
     axiosInstance.get("/orders/cart/", {
         headers: { Authorization: `Token ${token}` },
     }).then(res => res.data.items);
-// DELETE /api/v0.1/orders/cart/items/{id}/
+
 export const removeFromCart = (itemId, token) =>
     axiosInstance.delete(`/orders/cart/items/${itemId}/`, {
         headers: { Authorization: `Token ${token}` },
