@@ -1,24 +1,41 @@
-export default function FooterLinks({ links , titile }) {
+import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
+
+export default function FooterLinks({ links, title }) {
   return (
-    <div className="ele-center justify-start lg:justify-center">
-      <div>
-        <h4 className="text-[1.2rem] font-medium mb-2 ">{titile}</h4>
-        <ul className="flex flex-col gap-2 ml-5 min-h-10">
-          {links.map((link) => (
-            <li
-              key={link}
-              className="list-disc hover:text-[#ff1e1e] transition-all duration-200  cursor-pointer"
-            >
-              <a
-                href=""
-                className=" inline-block hover:translate-y-[-0.4rem] transition-transform duration-400 ease-linear "
+    <div>
+      <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+        <span className="w-8 h-[2px] bg-[#FF1E1E]"></span>
+        {title}
+      </h4>
+
+      <ul className="space-y-3">
+        {links.map((link, index) => (
+          <li
+            key={index}
+            className="group"
+          >
+            {link.link ? (
+              <Link
+                to={link.link}
+                className="flex items-center gap-2 text-gray-400 hover:text-[#FF1E1E] transition-all duration-300 group"
               >
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+                <FaChevronRight className="text-xs opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
+                <span className="transform group-hover:translate-x-1 transition-transform duration-300">
+                  {link.name || link}
+                </span>
+              </Link>
+            ) : (
+              <span className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-300 cursor-pointer group">
+                <FaChevronRight className="text-xs opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
+                <span className="transform group-hover:translate-x-1 transition-transform duration-300">
+                  {link.name || link}
+                </span>
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

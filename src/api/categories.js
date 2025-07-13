@@ -9,7 +9,7 @@ export const getAllCategories = async () => {
 export const getSingleCategory = async (slug) => {
 
     try {
-        const { data } = await axiosInstance.get(`/categories/${slug}/`);
+        const { data } = await axiosInstance.get(`/products/category/${slug}/`);
         console.log("Data from API:", data);
         return data;
     } catch (error) {

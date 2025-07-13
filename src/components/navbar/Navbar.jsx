@@ -174,28 +174,30 @@ export default function Navbar() {
           {/* Right Section */}
           <div className="flex items-center gap-3">
             {/* Search Button - Hidden on mobile */}
-            <button className="hidden sm:flex w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full items-center justify-center transition-all duration-300 hover:scale-110">
+            {/* <button className="hidden sm:flex w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full items-center justify-center transition-all duration-300 hover:scale-110">
               <FaSearch size={16} />
-            </button>
+            </button> */}
 
             {/* Wishlist - Hidden on mobile */}
             <button className="hidden sm:flex relative w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full items-center justify-center transition-all duration-300 hover:scale-110">
               <FaHeart size={16} />
-              {wishlistCount > 0 && (
+              {/* {wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {wishlistCount}
                 </span>
-              )}
+              )} */}
             </button>
 
             {/* Cart */}
             <button className="relative w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-              <FaShoppingCart size={16} />
+              <Link to="/cart">
+                <FaShoppingCart size={16} />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
+              </Link>
             </button>
 
             {/* Currency Selector - Hidden on mobile */}
@@ -295,11 +297,11 @@ export default function Navbar() {
               <FaHeart className="text-[#FF1E1E]" />
               <span className="text-white">Wishlist</span>
             </div>
-            {wishlistCount > 0 && (
+            {/* {wishlistCount > 0 && (
               <span className="bg-[#FF1E1E] text-white text-xs px-2 py-1 rounded-full">
                 {wishlistCount}
               </span>
-            )}
+            )} */}
           </button>
         </div>
 
