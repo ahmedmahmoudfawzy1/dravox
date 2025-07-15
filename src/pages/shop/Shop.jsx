@@ -12,7 +12,7 @@ export default function Shop() {
   const [searchQuery, setSearchQuery] = useState("");
   const { data, isLoading } = useProducts(filters);
 
-  const filteredProductsCount = data?.results?.length || 0;
+  const filteredProductsCount = data?.length || 0;
 
   return (
     <section className="pt-[120px] pb-12 min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a]">

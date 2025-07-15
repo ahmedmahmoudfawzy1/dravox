@@ -90,11 +90,11 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
   return (
     showSignupModal && (
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 py-16"
         onClick={() => setShowSignupModal(false)}
       >
         <div
-          className="bg-gradient-to-br from-[#1a1a1a] to-[#0b0b0b] p-8 rounded-3xl shadow-2xl w-full max-w-md text-white border border-white/10 relative animate-fadeIn"
+          className="bg-gradient-to-br from-[#1a1a1a] to-[#0b0b0b] p-4 rounded-3xl shadow-2xl w-full max-w-md text-white border border-white/10 relative animate-fadeIn"
           onClick={e => e.stopPropagation()}
         >
           {/* Close Button */}
@@ -111,7 +111,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
               <HiSparkles className="text-[#FF1E1E] text-2xl" />
             </div>
             <h2 className="text-3xl font-bold mb-2">Create Account</h2>
-            <p className="text-gray-400 text-sm">Join the Dravox gaming community</p>
+            {/* <p className="text-gray-400 text-sm">Join the Dravox gaming community</p> */}
           </div>
 
           {/* Google Auth */}
@@ -124,7 +124,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleFormSubmit} className="space-y-4">
+          <form onSubmit={handleFormSubmit} className="space-y-3">
             {/* Name Fields */}
             <div className="grid grid-cols-2 gap-4">
               <div className="relative">
@@ -133,7 +133,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                   name="first_name"
                   type="text"
                   placeholder="First Name"
-                  className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                  className="font-light w-full pl-12 pr-4 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
                   required
                   ref={firstName}
                 />
@@ -144,7 +144,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                   name="last_name"
                   type="text"
                   placeholder="Last Name"
-                  className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                  className="font-light w-full pl-12 pr-4 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
                   required
                   ref={lastName}
                 />
@@ -158,7 +158,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                 name="email"
                 type="email"
                 placeholder="Email Address"
-                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                className="font-light w-full pl-12 pr-4 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
                 required
                 ref={email}
               />
@@ -171,7 +171,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                 name="phone_number"
                 type="tel"
                 placeholder="Phone Number"
-                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                className="font-light w-full pl-12 pr-4 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300 font-light"
                 required
                 ref={phone}
               />
@@ -185,7 +185,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="w-full pl-12 pr-12 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                  className="font-light w-full pl-12 pr-12 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
                   required
                   ref={password}
                   onChange={(e) => checkPasswordStrength(e.target.value)}
@@ -225,7 +225,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                 name="password_confirm"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
-                className="w-full pl-12 pr-12 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300"
+                className="w-full pl-12 pr-12 py-1 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-[#FF1E1E] focus:bg-white/15 transition-all duration-300 "
                 required
                 ref={confirmPassword}
               />
@@ -245,7 +245,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                 required
                 className="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-[#FF1E1E] focus:ring-[#FF1E1E] focus:ring-offset-0"
               />
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-400 m-0">
                 I agree to the{" "}
                 <a href="/terms" className="text-[#FF1E1E] hover:underline">
                   Terms & Conditions
@@ -261,10 +261,10 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
             <button
               type="submit"
               disabled={signUpMutation.isPending}
-              className="w-full py-4 bg-[#FF1E1E] hover:bg-[#ff3333] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30 flex items-center justify-center gap-2"
+              className="w-full py-2 bg-[#FF1E1E] hover:bg-[#ff3333] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30 flex items-center justify-center gap-2"
             >
               {signUpMutation.isPending ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-5 py-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
                   <FaCheckCircle />
@@ -282,7 +282,7 @@ const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
                 setShowSignupModal(false);
                 // Open login modal
               }}
-              className="text-[#FF1E1E] hover:underline font-medium"
+              className="text-[#FF1E1E] hover:underline font-normal py-1"
             >
               Sign In
             </button>

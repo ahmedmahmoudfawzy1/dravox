@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
     ];
 
     return (
-        <section className="py-16 bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] relative overflow-hidden">
+        <section className="py-4 bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute top-1/2 left-0 w-72 h-72 bg-[#FF1E1E]/10 rounded-full blur-3xl" />

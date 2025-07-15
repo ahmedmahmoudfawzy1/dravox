@@ -61,7 +61,7 @@ const reviews = [
 
 const CustomerReviews = () => {
   return (
-    <section className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] py-16 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] py-4 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#FF1E1E]/10 rounded-full blur-3xl" />

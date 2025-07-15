@@ -82,7 +82,7 @@ export default function SingleCategory() {
                                 <img
                                     src={data?.category.category_image}
                                     alt={data?.category.name}
-                                    className="rounded-2xl shadow-xl object-contain w-full h-72 md:h-96"
+                                    className="rounded-2xl  object-contain w-full h-72 md:h-96"
                                 />
                             </div>
                         </div>

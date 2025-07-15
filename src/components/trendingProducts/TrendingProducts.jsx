@@ -34,7 +34,7 @@ export default function TrendingProducts() {
     };
 
     return (
-        <section className="py-16 bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] relative overflow-hidden">
+        <section className="py-4 bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#FF1E1E]/10 rounded-full blur-3xl" />
@@ -159,7 +159,7 @@ export default function TrendingProducts() {
                 )}
 
                 {/* View All Link */}
-                {trendingProducts.length > 0 && (
+                {/* {trendingProducts.length > 0 && (
                     <div className="text-center mt-12">
                         <Link
                             to="/shop"
@@ -169,7 +169,7 @@ export default function TrendingProducts() {
                             <span className="text-xl">→</span>
                         </Link>
                     </div>
-                )}
+                )} */}
             </div>
         </section>
     );

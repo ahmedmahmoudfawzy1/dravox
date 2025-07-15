@@ -113,7 +113,7 @@ export default function ProductCard({ searchQuery }) {
                     Details
                   </Link>
 
-                  <button
+                  {/* <button
                     onClick={() => handleAddToCart(product)}
                     disabled={isLoading}
                     className="flex-1 px-4 py-2.5 bg-[#FF1E1E] hover:bg-[#ff3333] text-white text-sm font-medium rounded-full transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -126,7 +126,7 @@ export default function ProductCard({ searchQuery }) {
                         Add
                       </>
                     )}
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>

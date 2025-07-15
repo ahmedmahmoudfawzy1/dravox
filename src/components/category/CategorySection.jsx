@@ -7,7 +7,7 @@ export default function CategorySection() {
   const { data, isLoading, isError, refetch } = useCategories();
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] relative overflow-hidden">
+    <section className="py-2 bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF1E1E]/10 rounded-full blur-3xl" />

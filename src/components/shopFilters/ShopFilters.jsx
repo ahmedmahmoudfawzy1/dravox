@@ -173,7 +173,7 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
       </div>
 
       {/* Brands */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+      {/* <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
         <h3 className="text-white font-semibold mb-4">Brands</h3>
         <div className="space-y-2">
           {brands.map((brand) => (
@@ -187,7 +187,7 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
             />
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Rating Filter */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">

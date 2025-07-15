@@ -180,7 +180,7 @@ export default function Navbar() {
 
             {/* Wishlist - Hidden on mobile */}
             <button className="hidden sm:flex relative w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full items-center justify-center transition-all duration-300 hover:scale-110">
-              <FaHeart size={16} />
+              <Link to="/wishlist"> <FaHeart size={16} /></Link>
               {/* {wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                   {wishlistCount}
@@ -192,11 +192,11 @@ export default function Navbar() {
             <button className="relative w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
               <Link to="/cart">
                 <FaShoppingCart size={16} />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                  {cartCount}
-                </span>
-              )}
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                    {cartCount}
+                  </span>
+                )}
               </Link>
             </button>
 

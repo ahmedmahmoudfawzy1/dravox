@@ -5,7 +5,7 @@ export default function About() {
   return (
     <>
       <AboutComponent />
-      <WhoDravox />
+      {/* <WhoDravox /> */}
     </>
   );
 }

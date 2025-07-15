@@ -1,23 +1,25 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   FaUser,
-  FaShoppingCart,
-  FaHeart,
-  FaCog,
   FaBox,
   FaSignOutAlt,
+  FaBell,
+  FaGamepad,
+  FaEdit,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaCalendar,
 } from "react-icons/fa";
+import { MdVerified } from "react-icons/md";
 import { useState, useEffect } from "react";
 import useAuthStore from "../../store/authStore";
 import Orders from "../../components/orders/Orders";
-import Cart from "../../components/cart/Cart";
-import Wishlist from "../../components/wishlist/Wishlist";
-import AccountDetails from "../../components/accountDetails/AccountDetails";
-import Settings from "./settings/Settings";
 
 export default function ProfilePage() {
   const { user, logout } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("orders");
 
   useEffect(() => {
@@ -27,74 +29,124 @@ export default function ProfilePage() {
   }, [location.pathname]);
 
   const tabs = [
-    { id: "account", label: "Account", icon: <FaUser /> },
-    { id: "orders", label: "Orders", icon: <FaBox /> },
-    { id: "cart", label: "Cart", icon: <FaShoppingCart /> },
-    { id: "wishlist", label: "Wishlist", icon: <FaHeart /> },
-    { id: "settings", label: "Settings", icon: <FaCog /> },
+    {
+      id: "orders",
+      label: "My Orders",
+      icon: <FaBox />,
+      description: "Track your purchases",
+      color: "from-green-500 to-emerald-500",
+      badge: "3"
+    },
   ];
 
   const renderContent = () => {
     switch (activeTab) {
       case "orders":
         return <Orders />;
-      case "cart":
-        return <Cart />;
-      case "wishlist":
-        return <Wishlist />;
-      case "account":
-        return <AccountDetails />;
-      case "settings":
-        return <Settings />;
       default:
         return <Outlet />;
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen pt-[75px] overflow-hidden">
-      {/* Sidebar */}
-      <aside className="fixed top-[75px] left-0 w-full md:w-[250px] bg-secondary-color text-white p-2 md:p-6 shadow-md z-50 flex md:flex-col items-center md:items-start gap-4 overflow-x-auto md:overflow-y-auto md:h-[calc(100vh-75px)]">
-        <div className="hidden md:block mb-6">
-          <h2 className="text-lg font-semibold">
-            Welcome back,
-            <br />
-            <span className="text-primary-color text-xl">
-              {user?.first_name}
-            </span>
-          </h2>
+    <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-24">
+      {/* Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-40 right-20 w-96 h-96 bg-[#FF1E1E]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 pb-8">
+        {/* Profile Header */}
+        <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 mb-6">
+          <div className="flex flex-col lg:flex-row gap-8 lg:justify-around">
+            {/* Left Section - Avatar and Basic Info */}
+            <div className="flex  flex-col sm:flex-row items-center sm:items-start gap-6 lg:w-1/3">
+              {/* Avatar */}
+              <div className="relative group">
+                <div className="w-32 h-32 bg-gradient-to-br from-[#FF1E1E] to-[#ff4444] rounded-full p-1">
+                  <div className="w-full h-full bg-[#1a1a1a] rounded-full flex items-center justify-center overflow-hidden">
+                    {user?.avatar ? (
+                      <img src={user.avatar} alt={user.first_name} className="w-full h-full object-cover" />
+                    ) : (
+                      <FaUser className="text-5xl text-gray-400" />
+                    )}
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div className="text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-white">
+                    {user?.first_name} {user?.last_name}
+                  </h1>
+                </div>
+                <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#FF1E1E] to-[#ff4444] text-white text-xs font-bold rounded-full">
+                  PRO GAMER
+                </span>
+                <div className="flex items-center gap-4 mt-4">
+                  <div className="flex items-center gap-2">
+                    <FaBox className="text-green-500" />
+                    <div>
+                      <p className="text-xl font-bold text-white">47</p>
+                      <p className="text-xs text-gray-400">Orders</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaGamepad className="text-purple-500" />
+                    <div>
+                      <p className="text-xl font-bold text-white">2023</p>
+                      <p className="text-xs text-gray-400">Member</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="lg:w-1/3 space-y-4">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Contact Information</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-gray-300">
+                  <FaEnvelope className="text-gray-500 w-4" />
+                  <span className="text-sm">{user?.email || "user@example.com"}</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-300">
+                  <FaPhone className="text-gray-500 w-4" />
+                  <span className="text-sm">{user?.phone || "+1 234 567 890"}</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-300">
+                  <FaMapMarkerAlt className="text-gray-500 w-4" />
+                  <span className="text-sm">{user?.address || "123 Gaming Street, CA"}</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-300">
+                  <FaCalendar className="text-gray-500 w-4" />
+                  <span className="text-sm">Joined {user?.created_at ? new Date(user.created_at).toLocaleDateString() : "January 2023"}</span>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
         </div>
 
-        <ul className="flex md:flex-col gap-4 w-full justify-around md:justify-start text-sm">
-          {tabs.map((tab) => (
-            <li
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`cursor-pointer flex items-center md:gap-2 justify-center md:justify-start py-2 px-3 rounded-md transition w-full md:w-auto ${
-                activeTab === tab.id
-                  ? "bg-primary-color text-white"
-                  : "text-dark-gray hover:text-white hover:bg-[#1a1a1a]"
-              }`}
-            >
-              <span className="text-lg">{tab.icon}</span>
-              <span className="hidden md:inline">{tab.label}</span>
-            </li>
-          ))}
 
-          <li
-            onClick={logout}
-            className="cursor-pointer flex items-center justify-center md:justify-start gap-2 py-2 px-3 rounded-md text-dark-gray hover:text-red-500 w-full md:w-auto"
-          >
-            <FaSignOutAlt />
-            <span className="hidden md:inline">Logout</span>
-          </li>
-        </ul>
-      </aside>
-
-      {/* Main content */}
-      <main className="mt-[125px] md:mt-0 md:ml-[250px] flex-1 h-[calc(100vh-75px)] overflow-y-auto p-4">
-        {renderContent()}
-      </main>
+        <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <FaBox className="text-[#FF1E1E]" />
+              My Orders
+            </h2>
+            <span className="px-3 py-1 bg-[#FF1E1E]/20 text-[#FF1E1E] text-sm font-bold rounded-full">
+              3 Active Orders
+            </span>
+          </div>
+          {renderContent()}
+        </div>
+      </div>
     </div>
   );
 }

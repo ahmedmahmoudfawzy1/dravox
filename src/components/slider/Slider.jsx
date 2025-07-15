@@ -69,7 +69,7 @@ export default function Slider() {
   const handleMouseLeave = () => setIsPaused(false);
 
   return (
-    <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-20 pb-12 overflow-hidden">
+    <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-5 pb-1 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#FF1E1E]/20 rounded-full blur-3xl animate-pulse" />
