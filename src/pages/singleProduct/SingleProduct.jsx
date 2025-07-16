@@ -30,6 +30,16 @@ export default function SingleProduct() {
   const [activeTab, setActiveTab] = useState("features");
 
   const { data: product, isLoading, error } = useGetSingleProduct(slug);
+  const handleShareClick = () => {
+    const productUrl = window.location.href;
+    navigator.clipboard.writeText(productUrl)
+      .then(() => {
+        toast.success("Product link copied to clipboard!");
+      })
+      .catch(() => {
+        toast.error("Failed to copy link.");
+      });
+  };
 
   const handleAddToCart = () => {
     if (!selectedColor) return toast.error("Please select a color");
@@ -267,9 +277,13 @@ export default function SingleProduct() {
 
                 <WishlistBtn product={product} className="w-12 h-12" />
 
-                <button className="w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300">
+                <button
+                  onClick={handleShareClick}
+                  className="w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300"
+                >
                   <FaShare />
                 </button>
+
               </div>
             </div>
 

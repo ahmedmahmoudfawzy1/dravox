@@ -7,3 +7,5 @@ export const getOrders = () => {
 export const getSingleOrder = (orderId) => {
     return axiosInstance.get(`/orders/${orderId}`).then(res => res.data);
 };
+
+

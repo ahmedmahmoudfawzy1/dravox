@@ -37,15 +37,56 @@ export default function SingleOrder() {
   const { mutate: cancelOrder, isPending: isCancelling } = useCancelOrder(token);
   const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
 
+  // const handleCancelOrder = () => {
+  //   cancelOrder(order.id, {
+  //     onSuccess: () => {
+  //       toast.success("Order cancelled successfully");
+  //       navigate("/profile");
+  //     },
+  //     onError: (err) => {
+  //       const detail = err?.response?.data?.detail;
+  //       toast.error(detail || "Failed to cancel order");
+  //     },
+  //   });
+  // };
+
+
+  // Updated handleCancelOrder in SingleOrder component
   const handleCancelOrder = () => {
+    setConfirmCancelOpen(false);
+
     cancelOrder(order.id, {
       onSuccess: () => {
         toast.success("Order cancelled successfully");
+        // Navigate immediately - the cache will be cleared
         navigate("/profile");
       },
       onError: (err) => {
-        const detail = err?.response?.data?.detail;
-        toast.error(detail || "Failed to cancel order");
+        console.error("Cancel order error:", err);
+
+        // Handle our special error case
+        if (err.code === 'CANCEL_UNCERTAIN') {
+          toast.warning("Order cancellation may have succeeded. Please refresh to verify.", {
+            autoClose: 5000,
+          });
+          // Refresh the page after a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          // More specific error messages
+          let errorMessage = "Failed to cancel order";
+
+          if (err?.response?.status === 500) {
+            errorMessage = "Server error. Please refresh to check order status.";
+          } else if (err?.response?.data?.detail) {
+            errorMessage = err.response.data.detail;
+          } else if (err?.response?.data?.message) {
+            errorMessage = err.response.data.message;
+          } else if (err?.response?.data?.error) {
+            errorMessage = err.response.data.error;
+          }
+        }
       },
     });
   };
@@ -64,6 +105,8 @@ export default function SingleOrder() {
   }
 
   const order = data?.data;
+
+  console.log(order)
 
   // Status configuration
   const getStatusConfig = (status) => {

@@ -61,7 +61,7 @@ const reviews = [
 
 const CustomerReviews = () => {
   return (
-    <section className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] py-4 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0b0b0b] py-16 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#FF1E1E]/10 rounded-full blur-3xl" />
@@ -173,11 +173,11 @@ const CustomerReviews = () => {
           </Swiper>
 
           {/* Custom Navigation Buttons */}
-          <button className="review-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white/10 hover:bg-[#FF1E1E]/20 backdrop-blur-sm border border-white/20 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20">
+          <button className="review-prev sm:hidden absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white/10 hover:bg-[#FF1E1E]/20 backdrop-blur-sm border border-white/20 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20">
             <FaArrowLeft />
           </button>
 
-          <button className="review-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-12 h-12 bg-white/10 hover:bg-[#FF1E1E]/20 backdrop-blur-sm border border-white/20 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20">
+          <button className="review-next sm:hidden absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-12 h-12 bg-white/10 hover:bg-[#FF1E1E]/20 backdrop-blur-sm border border-white/20 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20">
             <FaArrowRight />
           </button>
         </div>
