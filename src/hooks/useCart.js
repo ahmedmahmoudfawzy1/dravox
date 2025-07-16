@@ -10,10 +10,9 @@ export const useAddToCart = () => {
     return useMutation({
         mutationFn: (item) => addToCart(item, token),
         onSuccess: () => {
-            toast.success("Added to cart successfully!");
             qc.invalidateQueries(['cart']);
         },
-        onError: () => toast.error("Error adding to cart"),
+
     });
 };
 

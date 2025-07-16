@@ -15,12 +15,13 @@ import {
 import { HiShoppingBag } from "react-icons/hi";
 import Select from "react-select";
 import SignupModal from "../registerModal/RegisterModal";
-import useAuthStore from "../../store/authStore";
+
 import DropdownMenu from "./DrowbDownMenue";
 import LoginModal from "../LoginModal";
 import useModalStore from "../../store/modalStore";
 import useCurrencyStore from "../../store/currencyStore";
 import { useCurrencies } from "../../hooks/useProducts";
+
 
 const customStyles = {
   control: (provided, state) => ({
@@ -105,12 +106,14 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartCount] = useState(3); // Example cart count
-  const [wishlistCount] = useState(2); // Example wishlist count
+
+
 
   const { data } = useCurrencies();
   const { currency, setCurrency } = useCurrencyStore();
   const { isLoginOpen, openLogin, closeLogin } = useModalStore();
+
+
 
   const dropdownRef = useRef(null);
 
@@ -192,11 +195,9 @@ export default function Navbar() {
             <button className="relative w-10 h-10 bg-white/10 hover:bg-[#FF1E1E]/20 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
               <Link to="/cart">
                 <FaShoppingCart size={16} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                    {cartCount}
-                  </span>
-                )}
+                {/* <span className="absolute -top-1 -right-1 bg-[#FF1E1E] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                  {cartCount}
+                </span> */}
               </Link>
             </button>
 

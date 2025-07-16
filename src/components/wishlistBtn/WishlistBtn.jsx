@@ -22,15 +22,14 @@ export default function WishlistBtn({ product }) {
         onSuccess: () => {
           if (isInWishlist) {
             removeWishlistItem(product.id);
-            toast.info("Removed from wishlist");
           } else {
             addWishlistItem(product);
-            toast.success("Added to wishlist");
+
           }
         },
         onError: (error) => {
           console.error("Wishlist Error:", error);
-          toast.error("Error updating wishlist");
+
         },
       }
     );

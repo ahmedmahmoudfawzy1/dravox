@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../../components/Loader/Spinner";
 import {
   useCart,
@@ -34,12 +34,18 @@ export default function CartPage() {
   const discount = promoApplied ? subtotal * 0.1 : 0;
   const total = subtotal + shipping - discount;
 
+  let cartItemsLength = cartItems?.length
+
+  useEffect(() => {
+    localStorage.setItem("cartLength", cartItemsLength)
+  }, [cartItems?.length])
+
+
   // Get currency from first item or default
   const currency = cartItems[0]?.product?.price?.symbol || "$";
 
   const handleRemoveItem = (itemId, productName) => {
     removeItem(itemId);
-    toast.success(`${productName} removed from cart`);
   };
 
   const handleUpdateQuantity = (itemId, newQuantity) => {

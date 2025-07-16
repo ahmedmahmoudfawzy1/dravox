@@ -26,22 +26,17 @@ export default function WishlistPage() {
       {
         onSuccess: () => {
           removeWishlistItem(product.id);
-          toast.success("Removed from wishlist");
           setRemovingId(null);
         },
         onError: (err) => {
           console.log(err);
-          toast.error("Error removing from wishlist");
           setRemovingId(null);
         },
       }
     );
   };
 
-  const handleAddToCart = (product) => {
-    // Add to cart logic here
-    toast.success(`${product.name} added to cart!`);
-  };
+
 
   if (isLoading && !removingId) {
     return (

@@ -23,17 +23,13 @@ export default function SingleCategory() {
 
     const handleAddToCart = async (product) => {
         setLoadingProducts(prev => ({ ...prev, [product.id]: true }));
-        try {
-            // Add to cart logic here
-            toast.success(`${product.name} added to cart!`, {
-                position: "bottom-right",
-                autoClose: 3000,
-            });
-        } catch (error) {
-            toast.error("Failed to add to cart");
-        } finally {
-            setLoadingProducts(prev => ({ ...prev, [product.id]: false }));
-        }
+        // try {
+        //     toast.success(`${product.name} added to cart!`, );
+        // } catch (error) {
+        //     toast.error("Failed to add to cart");
+        // } finally {
+        //     setLoadingProducts(prev => ({ ...prev, [product.id]: false }));
+        // }
     };
 
     if (isLoading) return (

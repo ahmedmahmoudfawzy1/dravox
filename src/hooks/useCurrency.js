@@ -24,7 +24,6 @@ export const useUpdateCurrency = (token) => {
                     headers: { Authorization: `Token ${token}` },
                 }
             ),
-        onSuccess: () => toast.success("Currency updated"),
-        onError: () => toast.error("Failed to update currency"),
+
     });
 };

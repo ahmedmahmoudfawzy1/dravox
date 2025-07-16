@@ -22,24 +22,24 @@ export default function ProductCard({ searchQuery }) {
     product.short_description?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleAddToCart = async (product) => {
-    setLoadingProducts(prev => ({ ...prev, [product.slug]: true }));
-    try {
-      await addToCart(product);
-      toast.success(`${product.name} added to cart!`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-    } catch (error) {
-      toast.error("Failed to add to cart");
-    } finally {
-      setLoadingProducts(prev => ({ ...prev, [product.slug]: false }));
-    }
-  };
+  // const handleAddToCart = async (product) => {
+  //   setLoadingProducts(prev => ({ ...prev, [product.slug]: true }));
+  //   try {
+  //     await addToCart(product);
+  //     toast.success(`${product.name} added to cart!`, {
+  //       position: "bottom-right",
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //     });
+  //   } catch (error) {
+  //     toast.error("Failed to add to cart");
+  //   } finally {
+  //     setLoadingProducts(prev => ({ ...prev, [product.slug]: false }));
+  //   }
+  // };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -34,10 +34,10 @@ export default function SingleProduct() {
     const productUrl = window.location.href;
     navigator.clipboard.writeText(productUrl)
       .then(() => {
-        toast.success("Product link copied to clipboard!");
+        console.log("Product link copied to clipboard!");
       })
       .catch(() => {
-        toast.error("Failed to copy link.");
+        console.log("Failed to copy link.");
       });
   };
 
@@ -48,7 +48,6 @@ export default function SingleProduct() {
       color_variant_id: selectedColor.id,
       quantity: quantity,
     });
-    toast.success("Added to cart!");
   };
 
   useEffect(() => {
