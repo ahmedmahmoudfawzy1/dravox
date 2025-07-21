@@ -294,15 +294,12 @@ export default function Navbar() {
           </button>
 
           <button className="w-full flex items-center justify-between bg-white/10 hover:bg-[#FF1E1E]/20 px-4 py-3 rounded-full transition-all">
-            <div className="flex items-center gap-3">
-              <FaHeart className="text-[#FF1E1E]" />
-              <span className="text-white">Wishlist</span>
-            </div>
-            {/* {wishlistCount > 0 && (
-              <span className="bg-[#FF1E1E] text-white text-xs px-2 py-1 rounded-full">
-                {wishlistCount}
+            <Link to="/wishlist" className="w-full inline-block">
+              <span className="flex items-center gap-3 ">
+                <FaHeart className="text-[#FF1E1E] " />
+                <span className="text-white">Wishlist</span>
               </span>
-            )} */}
+            </Link>
           </button>
         </div>
 

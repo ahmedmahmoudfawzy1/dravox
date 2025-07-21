@@ -4,27 +4,17 @@ import { HiCurrencyDollar } from "react-icons/hi";
 import Select from "react-select";
 import { useCategories } from "../../hooks/useCategories";
 import CheckBoxFilter from "./components/CheckBoxFilter";
-// import CheckBoxFilter from "./CheckBoxFilter";
 
 export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [priceSort, setPriceSort] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
 
   const { data: categories } = useCategories();
 
-  // Gaming peripherals brands
-  const brands = [
-    { id: 1, name: "Razer", count: 24 },
-    { id: 2, name: "Logitech", count: 31 },
-    { id: 3, name: "SteelSeries", count: 18 },
-    { id: 4, name: "Corsair", count: 22 },
-    { id: 5, name: "HyperX", count: 15 },
-  ];
 
-  // Category icons mapping
+
   const categoryIcons = {
     "Keyboards": <FaKeyboard />,
     "Mice": <FaMouse />,
@@ -62,6 +52,7 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
     }),
     menu: (base) => ({
       ...base,
+      zIndex: 9999,
       backgroundColor: "rgba(26, 26, 26, 0.98)",
       backdropFilter: "blur(10px)",
       borderRadius: "16px",
@@ -94,23 +85,16 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
     );
   };
 
-  const handleBrandChange = (brand) => {
-    setSelectedBrands((prev) =>
-      prev.includes(brand)
-        ? prev.filter((b) => b !== brand)
-        : [...prev, brand]
-    );
-  };
+
 
   useEffect(() => {
     onFilterChange({
       categories: selectedCategories,
       priceSort,
       priceRange,
-      brands: selectedBrands,
       rating: selectedRating,
     });
-  }, [selectedCategories, priceSort, priceRange, selectedBrands, selectedRating]);
+  }, [selectedCategories, priceSort, priceRange, selectedRating]);
 
   return (
     <aside className={`${!isMobile ? 'sticky top-28' : ''} space-y-6`}>
@@ -127,6 +111,8 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
           placeholder="Select sorting..."
           styles={customStyles}
           isSearchable={false}
+          menuPortalTarget={document.body}
+          menuPosition="fixed"
         />
       </div>
 
@@ -172,23 +158,6 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
         </div>
       </div>
 
-      {/* Brands */}
-      {/* <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
-        <h3 className="text-white font-semibold mb-4">Brands</h3>
-        <div className="space-y-2">
-          {brands.map((brand) => (
-            <CheckBoxFilter
-              key={brand.id}
-              id={`brand-${brand.id}`}
-              label={brand.name}
-              checked={selectedBrands.includes(brand.id)}
-              onChange={() => handleBrandChange(brand.id)}
-              count={brand.count}
-            />
-          ))}
-        </div>
-      </div> */}
-
       {/* Rating Filter */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
         <h3 className="text-white font-semibold mb-4">Customer Rating</h3>
@@ -198,8 +167,8 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
               key={rating}
               onClick={() => setSelectedRating(rating === selectedRating ? 0 : rating)}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-200 ${selectedRating === rating
-                  ? "bg-[#FF1E1E]/20 border border-[#FF1E1E]"
-                  : "bg-white/5 border border-transparent hover:bg-white/10"
+                ? "bg-[#FF1E1E]/20 border border-[#FF1E1E]"
+                : "bg-white/5 border border-transparent hover:bg-white/10"
                 }`}
             >
               <div className="flex items-center gap-1">
@@ -218,11 +187,10 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
       </div>
 
       {/* Clear Filters */}
-      {(selectedCategories.length > 0 || selectedBrands.length > 0 || selectedRating > 0 || priceSort) && (
+      {(selectedCategories.length > 0 || selectedRating > 0 || priceSort) && (
         <button
           onClick={() => {
             setSelectedCategories([]);
-            setSelectedBrands([]);
             setSelectedRating(0);
             setPriceSort("");
             setPriceRange([0, 500]);

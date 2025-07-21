@@ -58,8 +58,8 @@ export default function SingleOrder() {
     cancelOrder(order.id, {
       onSuccess: () => {
         navigate("/profile");
-     
-      }, 
+
+      },
     });
   };
 
@@ -254,7 +254,7 @@ export default function SingleOrder() {
               <div className="space-y-4">
                 {order.items.map((item) => (
                   <div key={item.id} className="bg-white/5 rounded-2xl p-4 hover:bg-white/10 transition-all">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 flex-wrap">
                       <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center">
                         <FaBox className="text-2xl text-gray-500" />
                       </div>

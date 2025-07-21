@@ -78,7 +78,7 @@ export default function LoginModal() {
         </div>
 
         {/* Google Auth */}
-        <GoogleAuth />
+        <GoogleAuth closeLogin={closeLogin} />
 
         <div className="flex items-center gap-4 my-6">
           <div className="flex-1 h-px bg-white/20"></div>

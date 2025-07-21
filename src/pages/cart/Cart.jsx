@@ -279,7 +279,7 @@ export default function CartPage() {
                 {/* Promo Code */}
                 <div className="py-6 border-b border-white/10">
                   <label className="text-sm text-gray-400 mb-2 block">Have a promo code?</label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <input
                       type="text"
                       value={promoCode}
@@ -290,7 +290,8 @@ export default function CartPage() {
                     <button
                       onClick={handleApplyPromo}
                       disabled={!promoCode || promoApplied}
-                      className="px-6 py-2 bg-[#FF1E1E] hover:bg-[#ff3333] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium rounded-full transition-all duration-300"
+                      style={{ flexGrow: "1" }}
+                      className="px-6 py-2 bg-[#FF1E1E] hover:bg-[#ff3333] disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium rounded-full transition-all duration-300 "
                     >
                       Apply
                     </button>

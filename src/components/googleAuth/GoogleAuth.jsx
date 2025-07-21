@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import useAuthStore from "../../store/authStore";
 import { toast } from "react-toastify";
-export default function GoogleAuth() {
+export default function GoogleAuth({ closeLogin, setShowSignupModal }) {
   const { userLogin } = useAuthStore();
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -17,15 +17,18 @@ export default function GoogleAuth() {
         console.log("Google Login Response:", res);
         if (res.data?.token) {
           Cookies.set("token", res.data.token, { expires: 7 });
+          setShowSignupModal(false)
           userLogin(res.data.user, res.data.token);
+          closeLogin()
           toast.success("Logged in successfully with Google");
         } else {
           console.warn("Google login response missing token:", res.data);
           toast.error("Login with Google failed: No token in response");
+          closeLogin()
+          setShowSignupModal(false)
         }
       } catch (error) {
-        console.error("Google login error:", error);
-        toast.error("Login with Google failed");
+        closeLogin()
       }
     },
     onError: (err) => {

@@ -48,14 +48,14 @@ const DropdownMenu = ({
               <span className="font-medium">Profile</span>
             </Link>
 
-            <Link
+            {/* <Link
               to="/orders"
               className="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group"
               onClick={handleCloseMenu}
             >
               <FaBox className="text-[#FF1E1E] group-hover:scale-110 transition-transform" size={16} />
               <span className="font-medium">My Orders</span>
-            </Link>
+            </Link> */}
 
             <Link
               to="/cart"
@@ -77,14 +77,14 @@ const DropdownMenu = ({
               <span className="ml-auto bg-[#FF1E1E]/20 text-[#FF1E1E] text-xs px-2 py-0.5 rounded-full">2</span>
             </Link>
 
-            <Link
+            {/* <Link
               to="/settings"
               className="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group"
               onClick={handleCloseMenu}
             >
               <FaCog className="text-[#FF1E1E] group-hover:scale-110 transition-transform" size={16} />
               <span className="font-medium">Settings</span>
-            </Link>
+            </Link> */}
 
             {/* Divider */}
             <div className="my-2 border-t border-white/10"></div>

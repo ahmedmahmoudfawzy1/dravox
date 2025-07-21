@@ -202,14 +202,16 @@ export default function WishlistPage() {
                   <h3 className="text-xl font-bold text-white mb-2">Ready to checkout?</h3>
                   <p className="text-gray-400">Add these items to your cart and complete your purchase</p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-wrap">
                   <Link
                     to="/shop"
+                    style={{ flexGrow: "1" }}
                     className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium rounded-full transition-all duration-300"
                   >
                     Continue Shopping
                   </Link>
                   <button
+                    style={{ flexGrow: "1" }}
                     className="px-6 py-3 bg-[#FF1E1E] hover:bg-[#ff3333] text-white font-bold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30 flex items-center gap-2"
                   >
                     <FaShoppingCart />

@@ -15,8 +15,10 @@ import {
   FaCheckCircle
 } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
+import useModalStore from "../../store/modalStore";
 
 const SignupModal = ({ showSignupModal, setShowSignupModal }) => {
+  const { closeLogin } = useModalStore();
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
