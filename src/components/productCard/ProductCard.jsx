@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useAddToCart } from "../../hooks/useCart";
 import { useProducts } from "../../hooks/useProducts";
 import Spinner from "../Loader/Spinner";
 import WishlistBtn from "../wishlistBtn/WishlistBtn";
 import { FaShoppingCart } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
-import { toast } from "react-toastify";
 
-export default function ProductCard({ searchQuery }) {
-  const { data } = useProducts();
+export default function ProductCard({ searchQuery, filters }) {
+  const { data } = useProducts(filters);
   const { mutate: addToCart, isLoading } = useAddToCart();
   const [loadingProducts, setLoadingProducts] = useState({});
 

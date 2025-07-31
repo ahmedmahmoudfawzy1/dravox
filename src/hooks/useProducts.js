@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllProducts, getCurrencies, getSingleProduct } from "../api/products";
 import useCurrencyStore from "../store/currencyStore";
 
-export const useProducts = () => {
+export const useProducts = (filters = {}) => {
     const { currency } = useCurrencyStore();
     return useQuery({
-        queryKey: ["products", currency],
-        queryFn: () => getAllProducts(currency),
+        queryKey: ["products", currency, filters],
+        queryFn: () => getAllProducts(currency, filters),
         enabled: !!currency,
     });
 };

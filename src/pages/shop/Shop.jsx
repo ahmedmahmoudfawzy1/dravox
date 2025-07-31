@@ -14,6 +14,8 @@ export default function Shop() {
 
   const filteredProductsCount = data?.length || 0;
 
+  console.log(filters, "filters");
+
   return (
     <section className="pt-[120px] pb-12 min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a]">
       <div className="container mx-auto px-4">
@@ -77,7 +79,7 @@ export default function Shop() {
               </div>
             ) : (
               <div className="animate-fadeIn">
-                <ProductCard data={data} searchQuery={searchQuery} />
+                <ProductCard data={data} searchQuery={searchQuery} filters={filters} />
               </div>
             )}
           </div>
