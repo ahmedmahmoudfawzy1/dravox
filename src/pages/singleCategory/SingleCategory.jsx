@@ -10,44 +10,46 @@ import Spinner from "../../components/Loader/Spinner";
 
 export default function SingleCategory() {
     const { slug } = useParams();
+    console.log(slug)
     const [selectedColorVariants, setSelectedColorVariants] = useState({});
     const [loadingProducts, setLoadingProducts] = useState({});
     const { data, isLoading, isError, error } = useSingleCategorie(slug);
+    console.log(data)
 
-    const handleColorSelect = (productId, colorId) => {
-        setSelectedColorVariants(prev => ({
-            ...prev,
-            [productId]: colorId
-        }));
-    };
+    // const handleColorSelect = (productId, colorId) => {
+    //     setSelectedColorVariants(prev => ({
+    //         ...prev,
+    //         [productId]: colorId
+    //     }));
+    // };
 
-    const handleAddToCart = async (product) => {
-        setLoadingProducts(prev => ({ ...prev, [product.id]: true }));
-        // try {
-        //     toast.success(`${product.name} added to cart!`, );
-        // } catch (error) {
-        //     toast.error("Failed to add to cart");
-        // } finally {
-        //     setLoadingProducts(prev => ({ ...prev, [product.id]: false }));
-        // }
-    };
+    // const handleAddToCart = async (product) => {
+    //     setLoadingProducts(prev => ({ ...prev, [product.id]: true }));
+    //     // try {
+    //     //     toast.success(`${product.name} added to cart!`, );
+    //     // } catch (error) {
+    //     //     toast.error("Failed to add to cart");
+    //     // } finally {
+    //     //     setLoadingProducts(prev => ({ ...prev, [product.id]: false }));
+    //     // }
+    // };
 
-    if (isLoading) return (
-        <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] flex items-center justify-center">
-            <Spinner />
-        </div>
-    );
+    // if (isLoading) return (
+    //     <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] flex items-center justify-center">
+    //         <Spinner />
+    //     </div>
+    // );
 
-    if (isError) return (
-        <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] flex items-center justify-center">
-            <div className="text-center">
-                <p className="text-red-500 text-xl mb-4">Error: {error.message}</p>
-                <Link to="/shop" className="text-[#FF1E1E] hover:text-white transition-colors">
-                    Return to Shop
-                </Link>
-            </div>
-        </div>
-    );
+    // if (isError) return (
+    //     <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] flex items-center justify-center">
+    //         <div className="text-center">
+    //             <p className="text-red-500 text-xl mb-4">Error: {error.message}</p>
+    //             <Link to="/shop" className="text-[#FF1E1E] hover:text-white transition-colors">
+    //                 Return to Shop
+    //             </Link>
+    //         </div>
+    //     </div>
+    // );
 
     const products = data?.results || [];
 
@@ -66,20 +68,21 @@ export default function SingleCategory() {
                         {/* Category Header */}
                         <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
                             <div className="flex-1 space-y-4">
-                                <h1 className="text-4xl md:text-5xl font-bold text-[#FF1E1E] tracking-tight">
-                                    {data?.category.localized_name || data?.category.name}
-                                </h1>
-                                <p className="text-gray-300 text-lg">
+                                {/* <h1 className="text-4xl md:text-5xl font-bold text-[#FF1E1E] tracking-tight">
+                                    {data?.category.name}
+                                </h1> */}
+
+                                {/* <p className="text-gray-300 text-lg">
                                     {data?.category.localized_description || data?.category.description}
-                                </p>
+                                </p> */}
                             </div>
 
                             <div className="flex-1">
-                                <img
+                                {/* <img
                                     src={data?.category.category_image}
                                     alt={data?.category.name}
                                     className="rounded-2xl  object-contain w-full h-72 md:h-96"
-                                />
+                                /> */}
                             </div>
                         </div>
 

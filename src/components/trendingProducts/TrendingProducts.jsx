@@ -130,7 +130,7 @@ export default function TrendingProducts() {
                                                     View
                                                 </Link>
 
-                                                <button
+                                                {/* <button
                                                     onClick={() => handleAddToCart(product)}
                                                     disabled={isLoadingProduct || !product.is_in_stock}
                                                     className="flex-1 px-3 py-2 bg-[#FF1E1E] hover:bg-[#ff3333] disabled:bg-gray-600 disabled:cursor-not-allowed text-white text-xs font-medium rounded-full transition-all duration-300 flex items-center justify-center gap-1"
@@ -143,7 +143,7 @@ export default function TrendingProducts() {
                                                             Add
                                                         </>
                                                     )}
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                     </div>

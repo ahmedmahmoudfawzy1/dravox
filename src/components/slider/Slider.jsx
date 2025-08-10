@@ -2,51 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight, FaBolt, FaShieldAlt, FaTruck } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
-import banner1 from "../../assets/images/banner-1.webp";
-import banner2 from "../../assets/images/banner-2.webp";
-import banner3 from "../../assets/images/banner-3.webp";
+import { getAllSlides } from "../../api/slides";
+import { useSlides } from "../../hooks/useSlides";
 
-const slides = [
-  {
-    id: 0,
-    src: banner1,
-    alt: "Premium Gaming Keyboards",
-    title: "Mechanical Excellence",
-    description: "Experience lightning-fast response times",
-    cta: "Shop Now",
-    link: "/shop?category=keyboards",
-    badge: "New"
-  },
-  {
-    id: 1,
-    src: banner2,
-    alt: "Professional Gaming Mice",
-    title: "Precision Control",
-    description: "Dominate with flawless tracking",
-    cta: "Shop Now",
-    link: "/shop?category=mice",
-    badge: "Popular"
-  },
-  {
-    id: 2,
-    src: banner3,
-    alt: "Immersive Gaming Headsets",
-    title: "Crystal Clear Audio",
-    description: "Hear every detail that matters",
-    cta: "Shop Now",
-    link: "/shop?category=headsets",
-    badge: "Limited"
-  },
-];
+
+
 
 
 
 export default function Slider() {
+  const { data } = useSlides()
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef(null);
-  const length = slides.length;
+  const length = data?.length;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -72,7 +42,7 @@ export default function Slider() {
   };
 
   return (
-    <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-4 sm:pt-6 pb-1 overflow-hidden my-4">
+    <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] py- sm:pt-6 pb-1 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-[#FF1E1E]/20 rounded-full blur-3xl animate-pulse" />
@@ -85,7 +55,7 @@ export default function Slider() {
         onMouseLeave={() => setIsPaused(false)}
       >
         <div className="relative h-[320px] sm:h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
-          {slides.map((slide, idx) => {
+          {data?.map((slide, idx) => {
             const offset = ((idx - current + length) % length);
             const isActive = offset === 0;
             const isNext = offset === 1;
@@ -110,7 +80,7 @@ export default function Slider() {
                 }}
               >
                 <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-3xl overflow-hidden shadow-2xl">
-                  <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-[300px] sm:min-h-[420px] md:min-h-[500px] lg:min-h-[580px]">
+                  <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-[200px] sm:min-h-[450px] md:min-h-[550px] lg:min-h-[580px]">
                     {/* Content */}
                     <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10 order-2 lg:order-1">
                       <div className="mb-3 sm:mb-6">
@@ -125,15 +95,15 @@ export default function Slider() {
                       </h2>
 
                       <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-5 sm:mb-8 max-w-md">
-                        {slide.description}
+                        {slide.short_description}
                       </p>
 
                       <div className={`transition-all duration-700 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                         <Link
-                          to={slide.link}
+                          to={slide.button_url}
                           className="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-7 py-2 sm:py-3 bg-[#FF1E1E] hover:bg-[#ff3333] text-white text-sm sm:text-base font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30"
                         >
-                          {slide.cta}
+                          {slide.button_text}
                           <FaChevronRight />
                         </Link>
                       </div>
@@ -143,8 +113,8 @@ export default function Slider() {
                     <div className="relative h-[160px] sm:h-[240px] lg:h-full flex items-center justify-center p-4 sm:p-8 order-1 lg:order-2">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-50 lg:opacity-100" />
                       <img
-                        src={slide.src}
-                        alt={slide.alt}
+                        src={slide.image}
+                        alt={slide.title}
                         className={`max-w-[70%] sm:max-w-[80%] lg:max-w-full max-h-[90%] lg:max-h-full object-contain transition-all duration-1000 ${isActive ? 'scale-100 rotate-0' : 'scale-90 rotate-2'
                           }`}
                       />
@@ -172,7 +142,7 @@ export default function Slider() {
 
         {/* Dots */}
         <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {slides.map((_, idx) => (
+          {data?.map((_, idx) => (
             <button
               key={idx}
               onClick={() => goTo(idx)}

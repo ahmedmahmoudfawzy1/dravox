@@ -21,6 +21,7 @@ import LoginModal from "../LoginModal";
 import useModalStore from "../../store/modalStore";
 import useCurrencyStore from "../../store/currencyStore";
 import { useCurrencies } from "../../hooks/useProducts";
+import { useConfig } from './../../hooks/useConfig';
 
 
 const customStyles = {
@@ -143,25 +144,27 @@ export default function Navbar() {
     { path: "/about", label: "About", icon: <FaInfoCircle /> },
     { path: "/contact", label: "Contact", icon: <FaEnvelope /> },
   ];
-
+  const { data: config } = useConfig()
+  // console.log(config)
   return (
     <>
       <header className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50">
         <div className="backdrop-blur-xl bg-gradient-to-r from-[#0b0b0b]/90 to-[#1a1a1a]/90 rounded-full shadow-2xl shadow-black/50 border border-white/10 px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link
-            to="/"
+            to={data?.site_url}
             className="flex items-center gap-2 text-[#FF1E1E] font-extrabold hover:scale-105 transition-all duration-300"
           >
             <div className="relative">
-              <HiShoppingBag size={28} className="text-[#FF1E1E]" />
+              {/* <HiShoppingBag size={28} className="text-[#FF1E1E]" /> */}
+              <img src={config?.logo_url} alt="" className="w-[50px] h-[50px] object-contain" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF1E1E] rounded-full animate-pulse" />
             </div>
-            <span className="text-xl hidden sm:block">Dravox</span>
+            <span className="text-xl hidden sm:block">{config?.site_name}</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2 bg-black/30 rounded-full px-2 py-1">
+          <nav className="hidden lg:flex items-center gap-2 bg-black/30 rounded-full px-2 py-1 ms-[80px]">
             {navItems.map((item, i) => (
               <Link
                 key={i}

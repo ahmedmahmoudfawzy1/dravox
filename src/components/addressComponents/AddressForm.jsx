@@ -1,3 +1,5 @@
+import CountrySelect from "../AvailableCountries/AvailableCountries";
+
 // components/addressComponents/AddressForm.jsx
 export default function AddressForm({ formData, setFormData }) {
   const handleChange = (e) =>
@@ -37,13 +39,18 @@ export default function AddressForm({ formData, setFormData }) {
         onChange={handleChange}
         className="w-full p-3 rounded bg-[#2f2d2d] text-white placeholder-gray-400"
       />
-      <input
+      {/* <input
         name="country"
         required
         placeholder="Country (e.g., EG)"
         value={formData.country}
         onChange={handleChange}
         className="w-full p-3 rounded bg-[#2f2d2d] text-white placeholder-gray-400"
+      /> */}
+      <CountrySelect
+        onSelect={(countryCode) =>
+          setFormData({ ...formData, country: countryCode })
+        }
       />
       <input
         name="postal_code"

@@ -184,7 +184,7 @@ export default function AboutComponent() {
         </div>
 
         {/* Team Section */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-12 max-w-4xl mx-auto">
             <FaUsers className="text-5xl text-[#FF1E1E] mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -210,7 +210,7 @@ export default function AboutComponent() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

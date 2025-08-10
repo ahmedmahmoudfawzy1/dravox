@@ -3,6 +3,7 @@ import { FaArrowRight, FaGamepad, FaKeyboard, FaMouse, FaHeadphones, FaDesktop }
 import { HiCube } from "react-icons/hi";
 
 export default function CategoryCard({ category }) {
+  // console.log(category.slug)
   // Icon mapping for different categories
   const categoryIcons = {
     "keyboards": <FaKeyboard className="text-3xl" />,

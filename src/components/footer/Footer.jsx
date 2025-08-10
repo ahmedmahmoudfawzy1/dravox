@@ -4,13 +4,15 @@ import { HiShoppingBag } from "react-icons/hi";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import SocialMediaIcons from "../socialMediaIcons/SocialMediaIcons";
 import FooterLinks from "./components/footerLinks/FooterLinks";
+import { useInfo } from "../../hooks/useInfo";
 
 export default function Footer() {
-  // api endPoint
+  const { data } = useInfo()
+
   const [contacts] = useState([
-    { icon: <FaPhone />, text: "+01099876482", type: "phone" },
-    { icon: <FaEnvelope />, text: "support@getdravox.com", type: "email" },
-    { icon: <FaMapMarkerAlt />, text: "111 Fisal Giza, Egypt", type: "address" }
+    { icon: <FaPhone />, text: `${data?.configuration?.store_phone}`, type: "phone" },
+    { icon: <FaEnvelope />, text: `${data?.configuration?.store_email}`, type: "email" },
+    { icon: <FaMapMarkerAlt />, text: `${data?.configuration?.store_address}`, type: "address" }
   ]);
 
   const [categories] = useState([

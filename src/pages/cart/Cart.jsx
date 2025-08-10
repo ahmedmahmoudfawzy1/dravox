@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 
 export default function CartPage() {
   const { data: cartItems = [], isLoading, error } = useCart();
+  console.log("cart items now", cartItems)
   const { mutate: removeItem } = useRemoveFromCart();
   const { mutate: updateQuantity, isLoading: isUpdating } = useUpdateCartItemQuantity();
   const [promoCode, setPromoCode] = useState("");
@@ -42,7 +43,8 @@ export default function CartPage() {
 
 
   // Get currency from first item or default
-  const currency = cartItems[0]?.product?.price?.symbol || "$";
+  const currency = cartItems[0]?.product?.price?.symbol || localStorage.getItem("currency");
+  console.log(currency)
 
   const handleRemoveItem = (itemId, productName) => {
     removeItem(itemId);
@@ -126,7 +128,7 @@ export default function CartPage() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {/* Free Shipping Banner */}
-              {subtotal < 100 && (
+              {/* {subtotal < 100 && (
                 <div className="bg-gradient-to-r from-[#FF1E1E]/20 to-[#ff4444]/20 border border-[#FF1E1E]/30 rounded-2xl p-4 flex items-center gap-4">
                   <FaTruck className="text-[#FF1E1E] text-2xl" />
                   <div className="flex-1">
@@ -141,7 +143,7 @@ export default function CartPage() {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Cart Items */}
               {cartItems.map((item) => (
@@ -220,7 +222,7 @@ export default function CartPage() {
                     </div>
 
                     {/* Subtotal & Remove */}
-                    <div className="flex md:flex-col items-center justify-between md:justify-center gap-4">
+                    <div className="flex md:flex-col items-center justify-between md:justify-end gap-4">
                       <div className="text-center">
                         <p className="text-xs text-gray-400 mb-1">Subtotal</p>
                         <p className="text-2xl font-bold text-white">
