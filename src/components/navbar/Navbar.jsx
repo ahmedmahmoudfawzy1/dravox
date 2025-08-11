@@ -155,11 +155,20 @@ export default function Navbar() {
             to={data?.site_url}
             className="flex items-center gap-2 text-[#FF1E1E] font-extrabold hover:scale-105 transition-all duration-300"
           >
-            <div className="relative">
-              {/* <HiShoppingBag size={28} className="text-[#FF1E1E]" /> */}
-              <img src={config?.logo_url} alt="" className="w-[50px] h-[50px] object-contain" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF1E1E] rounded-full animate-pulse" />
+            <div className="relative w-[50px] h-[50px]">
+              {config?.logo_url ? (
+                <img
+                  src={config.logo_url}
+                  alt="Logo"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-t-transparent border-[#FF1E1E] rounded-full animate-spin"></div>
+                </div>
+              )}
             </div>
+
             <span className="text-xl hidden sm:block">{config?.site_name}</span>
           </Link>
 

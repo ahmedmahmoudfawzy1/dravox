@@ -22,10 +22,12 @@ export default function GoogleAuth({ closeLogin, setShowSignupModal }) {
           access_token: accessToken,
         });
         console.log(res)
+        userLogin(res.data.user, res.data.token);
         if (res.data?.token) {
           Cookies.set("token", res.data.token, { expires: 7 });
           setShowSignupModal(false)
           userLogin(res.data.user, res.data.token);
+          console.log(res.data.token)
           closeLogin()
           toast.success("Logged in successfully with Google");
         } else {

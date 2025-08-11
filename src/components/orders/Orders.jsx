@@ -12,7 +12,7 @@ export default function Orders() {
   const { data, isLoading, error } = useGetOrders(token);
 
   const orders = data?.data?.results;
-  console.log(orders);
+  // console.log(orders);
   return (
     <div className="text-white">
       <h2 className="text-2xl font-semibold mb-6">Your Orders</h2>

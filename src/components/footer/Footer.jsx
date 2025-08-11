@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiShoppingBag } from "react-icons/hi";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
@@ -8,12 +8,20 @@ import { useInfo } from "../../hooks/useInfo";
 
 export default function Footer() {
   const { data } = useInfo()
+  console.log(data)
+  const [contacts, setContacts] = useState([]);
+  useEffect(() => {
+    if (data?.configuration) {
+      setContacts([
+        { icon: <FaPhone />, text: data.configuration.store_phone, type: "phone" },
+        { icon: <FaEnvelope />, text: data.configuration.store_email, type: "email" },
+        { icon: <FaMapMarkerAlt />, text: data.configuration.store_address, type: "address" }
+      ]);
+    }
+  }, [data]);
 
-  const [contacts] = useState([
-    { icon: <FaPhone />, text: `${data?.configuration?.store_phone}`, type: "phone" },
-    { icon: <FaEnvelope />, text: `${data?.configuration?.store_email}`, type: "email" },
-    { icon: <FaMapMarkerAlt />, text: `${data?.configuration?.store_address}`, type: "address" }
-  ]);
+
+
 
   const [categories] = useState([
     { name: "Keyboards", link: "/shop?category=keyboards" },
@@ -78,11 +86,20 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
-              <div className="relative">
-                <HiShoppingBag size={36} className="text-[#FF1E1E] transform group-hover:scale-110 transition-transform duration-300" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF1E1E] rounded-full animate-pulse" />
+              <div className="relative w-[50px] h-[50px]">
+                {data?.configuration?.logo_url ? (
+                  <img
+                    src={`https://api.getdravox.com${data?.configuration?.logo_url}`}
+                    alt="Logo"
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-6 h-6 border-2 border-t-transparent border-[#FF1E1E] rounded-full animate-spin"></div>
+                  </div>
+                )}
               </div>
-              <span className="text-2xl font-bold text-white">Dravox</span>
+              <span className="text-2xl font-bold text-white">{data?.configuration?.site_name}</span>
             </Link>
 
             <p className="text-gray-400 mb-6 max-w-sm">

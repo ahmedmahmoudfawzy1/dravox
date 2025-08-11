@@ -15,6 +15,8 @@
     "@react-oauth/google": "^0.12.2",
     "@tanstack/react-query": "^5.80.6",
     "axios": "^1.9.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.12",
     "i18n-iso-countries": "^7.14.0",

@@ -15,29 +15,33 @@ import { MdVerified } from "react-icons/md";
 import { useState, useEffect } from "react";
 import useAuthStore from "../../store/authStore";
 import Orders from "../../components/orders/Orders";
+import { useUserInfo } from "../../hooks/useUser";
 
 export default function ProfilePage() {
   const { user, logout } = useAuthStore();
+
+  const { data } = useUserInfo()
+  console.log(data)
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("orders");
 
-  useEffect(() => {
-    if (location.pathname.includes("/profile/order/")) {
-      setActiveTab(null);
-    }
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   if (location.pathname.includes("/profile/order/")) {
+  //     setActiveTab(null);
+  //   }
+  // }, [location.pathname]);
 
-  const tabs = [
-    {
-      id: "orders",
-      label: "My Orders",
-      icon: <FaBox />,
-      description: "Track your purchases",
-      color: "from-green-500 to-emerald-500",
-      badge: "3"
-    },
-  ];
+  // const tabs = [
+  //   {
+  //     id: "orders",
+  //     label: "My Orders",
+  //     icon: <FaBox />,
+  //     description: "Track your purchases",
+  //     color: "from-green-500 to-emerald-500",
+  //     badge: "3"
+  //   },
+  // ];
 
   const renderContent = () => {
     switch (activeTab) {
@@ -66,8 +70,8 @@ export default function ProfilePage() {
               <div className="relative group">
                 <div className="w-32 h-32 bg-gradient-to-br from-[#FF1E1E] to-[#ff4444] rounded-full p-1">
                   <div className="w-full h-full bg-[#1a1a1a] rounded-full flex items-center justify-center overflow-hidden">
-                    {user?.avatar ? (
-                      <img src={user.avatar} alt={user.first_name} className="w-full h-full object-cover" />
+                    {data?.avatar_url ? (
+                      <img src={data?.avatar_url} alt={data?.first_name} className="w-full h-full object-cover" />
                     ) : (
                       <FaUser className="text-5xl text-gray-400" />
                     )}
@@ -79,15 +83,15 @@ export default function ProfilePage() {
 
               <div className="text-center sm:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
-                  <h1 className="text-2xl lg:text-3xl font-bold text-white">
-                    {user?.first_name} {user?.last_name}
-                  </h1>
+                  <h5 className="text-2xl lg:text-3xl font-bold text-white">
+                    {data?.first_name} {data?.last_name}
+                  </h5>
                 </div>
-                <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#FF1E1E] to-[#ff4444] text-white text-xs font-bold rounded-full">
+                {/* <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#FF1E1E] to-[#ff4444] text-white text-xs font-bold rounded-full">
                   PRO GAMER
-                </span>
+                </span> */}
                 <div className="flex items-center gap-4 mt-4">
-                  <div className="flex items-center gap-2">
+                  {/* <div className="flex items-center gap-2">
                     <FaBox className="text-green-500" />
                     <div>
                       <p className="text-xl font-bold text-white">47</p>
@@ -100,7 +104,7 @@ export default function ProfilePage() {
                       <p className="text-xl font-bold text-white">2023</p>
                       <p className="text-xs text-gray-400">Member</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -111,11 +115,11 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaEnvelope className="text-gray-500 w-4" />
-                  <span className="text-sm">{user?.email || "user@example.com"}</span>
+                  <span className="text-sm">{data?.email || "user@example.com"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaPhone className="text-gray-500 w-4" />
-                  <span className="text-sm">{user?.phone || "+1 234 567 890"}</span>
+                  <span className="text-sm">{data?.phone_number || "+1 234 567 890"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaMapMarkerAlt className="text-gray-500 w-4" />
@@ -123,7 +127,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaCalendar className="text-gray-500 w-4" />
-                  <span className="text-sm">Joined {user?.created_at ? new Date(user.created_at).toLocaleDateString() : "January 2023"}</span>
+                  <span className="text-sm">Joined {data?.date_joined}</span>
                 </div>
               </div>
             </div>
