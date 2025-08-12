@@ -38,16 +38,15 @@ export default function Orders() {
                 <td className="p-4">{order.order_number}</td>
                 <td className="p-4">{order.created_at}</td>
                 <td
-                  className={`p-4 font-medium ${
-                    statusColor[order.payment_status]
-                  }`}
+                  className={`p-4 font-medium ${statusColor[order.payment_status]
+                    }`}
                 >
                   {order.status}
                 </td>
                 <td className="p-4">{order.items_count}</td>
                 <td className="p-4">{order.total_amount}</td>
                 <td className="p-4">
-                  <Link to={`/profile/order/${order.id}`}>
+                  <Link to={`/singleOrder/${order.id}`}>
                     <button className="flex items-center gap-2 text-primary-color hover:underline">
                       <FaEye />
                       View

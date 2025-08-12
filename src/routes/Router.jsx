@@ -86,25 +86,29 @@ const router = createBrowserRouter([
             <Profile />
           </ProtectedRoute>
         ),
-        children: [
-          {
-            path: "order",
-            element: <Order />,
-          },
-          {
-            path: "order/:orderId",
-            element: <SingleOrder />,
-          },
-          {
-            path: "traking",
-            element: <Tracking />,
-          },
-          {
-            path: "settings",
-            element: <Settings />,
-          },
-        ],
+        // children: [
+        //   {
+        //     path: "order",
+        //     element: <Order />,
+        //   },
+        //   {
+        //     path: "order/:orderId",
+        //     element: <SingleOrder />,
+        //   },
+        //   {
+        //     path: "traking",
+        //     element: <Tracking />,
+        //   },
+        //   {
+        //     path: "settings",
+        //     element: <Settings />,
+        //   },
+        // ],
       },
+      {
+        path: "singleOrder/:orderId",
+        element: <SingleOrder />
+      }
     ],
   },
 ]);

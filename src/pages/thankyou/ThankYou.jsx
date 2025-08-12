@@ -113,7 +113,7 @@ export default function ThankYouPage() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to={`/profile/orders/${orderData.id}`}
+                to={`/singleOrder/${orderData.id}`}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#FF1E1E] hover:bg-[#ff3333] text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30"
               >
                 <FaBox />
@@ -233,8 +233,8 @@ export default function ThankYouPage() {
                 <div>
                   <p className="text-sm text-gray-400">Payment Status</p>
                   <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${orderData.payment_status === 'pending'
-                      ? 'bg-yellow-400/20 text-yellow-400'
-                      : 'bg-green-400/20 text-green-400'
+                    ? 'bg-yellow-400/20 text-yellow-400'
+                    : 'bg-green-400/20 text-green-400'
                     }`}>
                     {orderData.payment_status_display}
                   </span>
