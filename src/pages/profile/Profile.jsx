@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   FaUser,
   FaBox,
@@ -82,10 +82,15 @@ export default function ProfilePage() {
 
 
               <div className="text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
+                <div className="flex  flex-col justify-center sm:justify-start gap-3 mb-2">
                   <h5 className="text-2xl lg:text-3xl font-bold text-white">
                     {data?.first_name} {data?.last_name}
                   </h5>
+                  <Link to="/edit-profile">
+                    <button className="w-[50%] main-btn px-1 py-2">
+                      Edit Profile
+                    </button>
+                  </Link>
                 </div>
                 {/* <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#FF1E1E] to-[#ff4444] text-white text-xs font-bold rounded-full">
                   PRO GAMER

@@ -110,6 +110,7 @@ export default function Navbar() {
 
 
 
+
   const { data } = useCurrencies();
   const { currency, setCurrency } = useCurrencyStore();
   const { isLoginOpen, openLogin, closeLogin } = useModalStore();
@@ -232,6 +233,7 @@ export default function Navbar() {
                 aria-label="User Menu"
               >
                 <FaUserCircle size={20} />
+
               </button>
               <DropdownMenu
                 showDropdown={showDropdown}

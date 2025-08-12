@@ -24,6 +24,5 @@ export const useUpdateCurrency = (token) => {
                     headers: { Authorization: `Token ${token}` },
                 }
             ),
-
     });
 };

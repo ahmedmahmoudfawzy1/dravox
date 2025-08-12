@@ -18,6 +18,7 @@ import CheckoutPage from "../pages/checkout/Checkout";
 import ThankYouPage from "../pages/thankyou/ThankYou";
 import SingleOrder from "../pages/singleOrder/SingleOrder";
 import SingleCategory from "../pages/singleCategory/SingleCategory";
+import EditProfile from "../pages/EditProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       {
         path: "singleOrder/:orderId",
         element: <SingleOrder />
+      },
+      {
+        path: "edit-profile",
+        element: <EditProfile />
       }
     ],
   },
