@@ -14,7 +14,7 @@ export default function Shop() {
 
   const filteredProductsCount = data?.length || 0;
 
-  console.log(filters, "filters");
+
 
   return (
     <section className="pt-[120px] pb-12 min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a]">
@@ -109,7 +109,7 @@ export default function Shop() {
             <ShopFilters
               onFilterChange={(f) => {
                 setFilters({ ...filters, ...f });
-                setMobileFiltersOpen(false);
+                // setMobileFiltersOpen(false);
               }}
               isMobile={true}
               searchQuery={searchQuery}

@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 
 export default function CartPage() {
   const { data: cartItems = [], isLoading, error } = useCart();
-  console.log("cart items now", cartItems)
+
   const { mutate: removeItem } = useRemoveFromCart();
   const { mutate: updateQuantity, isLoading: isUpdating } = useUpdateCartItemQuantity();
   const [promoCode, setPromoCode] = useState("");
@@ -44,7 +44,6 @@ export default function CartPage() {
 
   // Get currency from first item or default
   const currency = cartItems[0]?.product?.price?.symbol || localStorage.getItem("currency");
-  console.log(currency)
 
   const handleRemoveItem = (itemId, productName) => {
     removeItem(itemId);

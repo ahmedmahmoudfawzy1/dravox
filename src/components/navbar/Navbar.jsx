@@ -145,7 +145,7 @@ export default function Navbar() {
     { path: "/contact", label: "Contact", icon: <FaEnvelope /> },
   ];
   const { data: config } = useConfig()
-  // console.log(config)
+
   return (
     <>
       <header className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50">

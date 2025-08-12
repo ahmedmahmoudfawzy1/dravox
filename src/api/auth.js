@@ -34,7 +34,7 @@ export const getUserProfile = () => {
 export const logoutUser = async () => {
     try {
         const token = Cookies.get("token");
-        console.log(token)
+        // console.log(token)
 
         await axiosInstance.post("/account/auth/logout/", {},
             {

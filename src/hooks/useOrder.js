@@ -77,7 +77,6 @@ export const useCancelOrder = (token) => {
             } catch (error) {
                 // If we get a 500 error, check if the order was actually cancelled
                 if (error.response?.status === 500) {
-                    console.log('Got 500 error, checking if order was actually cancelled...');
 
                     // Wait a bit longer for the server to complete the operation
                     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -95,7 +94,7 @@ export const useCancelOrder = (token) => {
 
                         // If the order is cancelled, consider it a success
                         if (orderCheck.data?.data?.status?.toLowerCase() === 'cancelled') {
-                            console.log('Order was successfully cancelled despite 500 error');
+
                             return orderCheck;
                         }
                     } catch (checkError) {

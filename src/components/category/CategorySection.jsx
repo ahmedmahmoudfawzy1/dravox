@@ -41,6 +41,7 @@ export default function CategorySection() {
               <CategoryCard
                 key={cat.slug}
                 category={cat}
+              // avalibleProducts={couunt}
               />
             ))}
           </div>

@@ -14,7 +14,6 @@ export default function PopupModal() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        console.log("usePopup data:", data);
     }, [data]);
 
     useEffect(() => {

@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const { user, logout } = useAuthStore();
 
   const { data } = useUserInfo()
-  console.log(data)
+
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("orders");

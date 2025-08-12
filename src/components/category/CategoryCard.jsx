@@ -3,24 +3,24 @@ import { FaArrowRight, FaGamepad, FaKeyboard, FaMouse, FaHeadphones, FaDesktop }
 import { HiCube } from "react-icons/hi";
 
 export default function CategoryCard({ category }) {
-  // console.log(category.slug)
-  // Icon mapping for different categories
-  const categoryIcons = {
-    "keyboards": <FaKeyboard className="text-3xl" />,
-    "mice": <FaMouse className="text-3xl" />,
-    "headsets": <FaHeadphones className="text-3xl" />,
-    "monitors": <FaDesktop className="text-3xl" />,
-    "controllers": <FaGamepad className="text-3xl" />,
-    "default": <HiCube className="text-3xl" />
-  };
+  // console.log(category)
+  // // Icon mapping for different categories
+  // const categoryIcons = {
+  //   "keyboards": <FaKeyboard className="text-3xl" />,
+  //   "mice": <FaMouse className="text-3xl" />,
+  //   "headsets": <FaHeadphones className="text-3xl" />,
+  //   "monitors": <FaDesktop className="text-3xl" />,
+  //   "controllers": <FaGamepad className="text-3xl" />,
+  //   "default": <HiCube className="text-3xl" />
+  // };
 
-  const getCategoryIcon = (name) => {
-    const key = name?.toLowerCase() || "default";
-    return categoryIcons[key] || categoryIcons.default;
-  };
+  // const getCategoryIcon = (name) => {
+  //   const key = name?.toLowerCase() || "default";
+  //   return categoryIcons[key] || categoryIcons.default;
+  // };
 
-  // Generate product count or use actual if available
-  const productCount = category.products_count || Math.floor(Math.random() * 30 + 10);
+
+
 
   return (
     <Link
@@ -44,16 +44,16 @@ export default function CategoryCard({ category }) {
         {/* Content Shadow Background */}
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-black/80 to-transparent -z-10" />
         {/* Icon Badge */}
-        <div className="absolute top-6 right-6 w-14 h-14 bg-black/60 backdrop-blur-md border border-white/30 rounded-2xl flex items-center justify-center text-white group-hover:bg-[#FF1E1E]/80 group-hover:border-[#FF1E1E] transition-all duration-300 shadow-xl">
+        {/* <div className="absolute top-6 right-6 w-14 h-14 bg-black/60 backdrop-blur-md border border-white/30 rounded-2xl flex items-center justify-center text-white group-hover:bg-[#FF1E1E]/80 group-hover:border-[#FF1E1E] transition-all duration-300 shadow-xl">
           {getCategoryIcon(category?.name)}
-        </div>
+        </div> */}
 
         {/* Category Info */}
         <div className="transform transition-all duration-500 translate-y-4 group-hover:translate-y-0 relative z-10">
           {/* Product Count */}
-          <span className="inline-block px-3 py-1 bg-black/60 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs font-semibold mb-3 shadow-lg">
-            {productCount} Products
-          </span>
+          {/* <span className="inline-block px-3 py-1 bg-black/60 backdrop-blur-sm border border-white/20 rounded-full text-white text-xs font-semibold mb-3 shadow-lg">
+            Products
+          </span> */}
 
           {/* Category Name */}
           <h3 className="text-2xl font-bold text-white mb-2 line-clamp-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">

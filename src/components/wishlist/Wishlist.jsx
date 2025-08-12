@@ -29,7 +29,7 @@ export default function WishlistPage() {
           setRemovingId(null);
         },
         onError: (err) => {
-          console.log(err);
+
           setRemovingId(null);
         },
       }
@@ -100,7 +100,7 @@ export default function WishlistPage() {
               {wishlist.map((item, index) => (
                 <div
                   key={item.id}
-                  className="group relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF1E1E]/20 hover:border-[#FF1E1E]/30 hover:scale-[1.02] animate-fadeIn"
+                  className="group relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF1E1E]/20 hover:border-[#FF1E1E]/30 hover:scale-[1.02] animate-fadeIn flex flex-col justify-start"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Stock Badge */}
@@ -169,7 +169,7 @@ export default function WishlistPage() {
                         to={`/shop/${item.slug}`}
                         className="flex-1 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium rounded-full text-center transition-all duration-300"
                       >
-                        View Details
+                        View
                       </Link>
 
                       <button

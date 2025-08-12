@@ -8,7 +8,7 @@ import { useInfo } from "../../hooks/useInfo";
 
 export default function Footer() {
   const { data } = useInfo()
-  console.log(data)
+  // console.log(data)
   const [contacts, setContacts] = useState([]);
   useEffect(() => {
     if (data?.configuration) {

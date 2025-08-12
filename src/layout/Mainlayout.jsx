@@ -24,6 +24,7 @@ export default function Mainlayout() {
           name="keywords"
           content={data?.seo?.keywords}
         />
+        <link rel="icon" type="image/x-icon" href={data?.logo_url}></link>
       </Helmet>
       <PopupModal />
       <div>

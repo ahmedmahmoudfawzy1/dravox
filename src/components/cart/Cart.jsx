@@ -18,7 +18,7 @@ export default function Cart() {
     enabled: !!token,
   });
 
-  console.log(cartItems);
+  // console.log(cartItems);
   const total = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0

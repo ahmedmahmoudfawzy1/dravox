@@ -10,11 +10,13 @@ import Spinner from "../../components/Loader/Spinner";
 
 export default function SingleCategory() {
     const { slug } = useParams();
-    console.log(slug)
     const [selectedColorVariants, setSelectedColorVariants] = useState({});
     const [loadingProducts, setLoadingProducts] = useState({});
     const { data, isLoading, isError, error } = useSingleCategorie(slug);
-    console.log(data)
+
+
+
+
 
     // const handleColorSelect = (productId, colorId) => {
     //     setSelectedColorVariants(prev => ({
@@ -68,21 +70,21 @@ export default function SingleCategory() {
                         {/* Category Header */}
                         <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
                             <div className="flex-1 space-y-4">
-                                {/* <h1 className="text-4xl md:text-5xl font-bold text-[#FF1E1E] tracking-tight">
-                                    {data?.category.name}
-                                </h1> */}
+                                <h1 className="text-4xl md:text-5xl font-bold text-[#FF1E1E] tracking-tight">
+                                    {data?.name}
+                                </h1>
 
-                                {/* <p className="text-gray-300 text-lg">
-                                    {data?.category.localized_description || data?.category.description}
-                                </p> */}
+                                <p className="text-gray-300 text-lg">
+                                    {data?.localized_description || data?.description}
+                                </p>
                             </div>
 
                             <div className="flex-1">
-                                {/* <img
-                                    src={data?.category.category_image}
-                                    alt={data?.category.name}
+                                <img
+                                    src={data?.category_image}
+                                    alt={data?.name}
                                     className="rounded-2xl  object-contain w-full h-72 md:h-96"
-                                /> */}
+                                />
                             </div>
                         </div>
 

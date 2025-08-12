@@ -9,7 +9,7 @@ import { useSlides } from "../../hooks/useSlides";
 export default function Slider() {
     const { data } = useSlides();
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-        Autoplay({ delay: 5000, stopOnMouseEnter: true }),
+        Autoplay({ delay: 3000, stopOnMouseEnter: false }),
     ]);
 
     const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);

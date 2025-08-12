@@ -11,7 +11,7 @@ export default function GoogleAuth({ closeLogin, setShowSignupModal }) {
   const { userLogin } = useAuthStore();
   const { user } = useAuthStore();
 
-  console.log(user, "User  From Google Auth")
+  // console.log(user, "User  From Google Auth")
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -27,7 +27,7 @@ export default function GoogleAuth({ closeLogin, setShowSignupModal }) {
           Cookies.set("token", res.data.token, { expires: 7 });
           setShowSignupModal(false)
           userLogin(res.data.user, res.data.token);
-          console.log(res.data.token)
+
           closeLogin()
           toast.success("Logged in successfully with Google");
         } else {

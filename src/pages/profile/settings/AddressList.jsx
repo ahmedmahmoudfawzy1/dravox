@@ -12,7 +12,7 @@ export default function AddressList() {
   const { data: addressesData, refetch } = useGetAddresses(token);
   const addresses = addressesData?.data?.results || [];
 
-  console.log(addresses[0]?.id)
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -34,7 +34,7 @@ export default function AddressList() {
         refetch();
       },
       onError: (err) => {
-        console.log(err);
+
         toast.error("Failed to delete address");
       },
     });

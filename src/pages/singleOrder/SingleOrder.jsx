@@ -78,7 +78,7 @@ export default function SingleOrder() {
 
   const order = data?.data;
 
-  console.log(order)
+
 
   // Status configuration
   const getStatusConfig = (status) => {

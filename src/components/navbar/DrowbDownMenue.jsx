@@ -64,7 +64,7 @@ const DropdownMenu = ({
             >
               <FaShoppingCart className="text-[#FF1E1E] group-hover:scale-110 transition-transform" size={16} />
               <span className="font-medium">Shopping Cart</span>
-              <span className="ml-auto bg-[#FF1E1E]/20 text-[#FF1E1E] text-xs px-2 py-0.5 rounded-full">3</span>
+              {/* <span className="ml-auto bg-[#FF1E1E]/20 text-[#FF1E1E] text-xs px-2 py-0.5 rounded-full">3</span> */}
             </Link>
 
             <Link
@@ -74,7 +74,7 @@ const DropdownMenu = ({
             >
               <FaHeart className="text-[#FF1E1E] group-hover:scale-110 transition-transform" size={16} />
               <span className="font-medium">Wishlist</span>
-              <span className="ml-auto bg-[#FF1E1E]/20 text-[#FF1E1E] text-xs px-2 py-0.5 rounded-full">2</span>
+              {/* <span className="ml-auto bg-[#FF1E1E]/20 text-[#FF1E1E] text-xs px-2 py-0.5 rounded-full">2</span> */}
             </Link>
 
             {/* <Link

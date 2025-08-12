@@ -34,10 +34,8 @@ export default function SingleProduct() {
     const productUrl = window.location.href;
     navigator.clipboard.writeText(productUrl)
       .then(() => {
-        console.log("Product link copied to clipboard!");
       })
       .catch(() => {
-        console.log("Failed to copy link.");
       });
   };
 

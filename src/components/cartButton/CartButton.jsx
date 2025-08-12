@@ -2,7 +2,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useAddToCart } from "../../hooks/useCart";
 
 export default function CartButton({ product }) {
-  console.log(product);
+  // console.log(product);
   const { mutate: addItemToCart, isPending } = useAddToCart();
 
   const handleAddToCart = () => {

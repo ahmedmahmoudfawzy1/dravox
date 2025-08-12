@@ -19,7 +19,7 @@ const CountrySelect = ({ onSelect }) => {
         setErrorMessage('');
         setSelected(country);
         onSelect?.(country.code);
-        console.log(country.code);
+        // console.log(country.code);
         setOpen(false);
     };
 

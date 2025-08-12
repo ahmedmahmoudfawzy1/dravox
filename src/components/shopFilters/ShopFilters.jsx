@@ -27,8 +27,6 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
     { value: "", label: "Default" },
     { value: "ltoh", label: "Price: Low to High" },
     { value: "htol", label: "Price: High to Low" },
-    { value: "popular", label: "Most Popular" },
-    { value: "newest", label: "Newest First" },
   ];
 
   const customStyles = {
@@ -160,7 +158,7 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
       </div>
 
       {/* Rating Filter */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+      {/* <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
         <h3 className="text-white font-semibold mb-4">Customer Rating</h3>
         <div className="space-y-2">
           {[4, 3, 2, 1].map((rating) => (
@@ -185,7 +183,7 @@ export default function ShopFilters({ onFilterChange, isMobile, searchQuery }) {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Clear Filters */}
       {(selectedCategories.length > 0 || selectedRating > 0 || priceSort) && (

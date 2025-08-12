@@ -7,7 +7,6 @@ import useAuthStore from "../store/authStore";
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuthStore();
-  console.log("routes", token);
   const { openLogin } = useModalStore();
   const navigate = useNavigate();
 
