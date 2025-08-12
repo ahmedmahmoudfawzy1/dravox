@@ -5,6 +5,7 @@ import { useUserInfo } from '../../hooks/useUser';
 import useCurrencyStore from '../../store/currencyStore';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { IoIosArrowDown } from "react-icons/io";
+import Spinner from '../../components/Loader/Spinner';
 
 export default function EditProfile() {
     const [formData, setFormData] = useState({});
@@ -19,14 +20,14 @@ export default function EditProfile() {
 
     const { currency } = useCurrencyStore()
 
-
+    const [loading, setLoading] = useState(false)
 
     const currencySelect = useRef(null)
     const firstNameRef = useRef(null)
     const lastNameRef = useRef(null)
     const phoneNumberRef = useRef(null)
 
-    const handelEditProfile = (e) => {
+    const handelEditProfile = async (e) => {
         e.preventDefault();
         const formData = {
             first_name: firstNameRef.current.value,
@@ -36,17 +37,30 @@ export default function EditProfile() {
             preferred_language: "en",
         }
 
-        fetch("https://api.getdravox.com/api/v0.1/account/user/profile/", {
-            method: "PATCH",
-            headers: {
-                "accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Token ${token}`
-            },
-            body: JSON.stringify(formData)
-        }).then((res) => res.json())
-            .then((data) => console.log(data))
-        // console.log(formData)
+
+
+
+        setLoading(true)
+
+        try {
+            const res = await fetch("https://api.getdravox.com/api/v0.1/account/user/profile/", {
+                method: "PATCH",
+                headers: {
+                    "accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await res.json();
+            console.log(data);
+
+        } catch (err) {
+            console.log(err)
+        } finally {
+            setLoading(false)
+        }
     }
 
 
@@ -55,6 +69,7 @@ export default function EditProfile() {
 
     return (
         <div className="min-h-screen bg-[#0B0B0B] relative overflow-hidden pt-24">
+
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='circuit' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 10h80v80h-80z' fill='none' stroke='%23FF1E1E' stroke-width='0.5' opacity='0.3'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23FF1E1E' opacity='0.5'/%3E%3Ccircle cx='90' cy='10' r='2' fill='%23FF1E1E' opacity='0.5'/%3E%3Ccircle cx='90' cy='90' r='2' fill='%23FF1E1E' opacity='0.5'/%3E%3Ccircle cx='10' cy='90' r='2' fill='%23FF1E1E' opacity='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23circuit)'/%3E%3C/svg%3E")`
@@ -176,7 +191,7 @@ export default function EditProfile() {
                                     type="submit"
                                     className=" main-btn p-3 text-white   rounded-lg "
                                 >
-                                    SAVE CHANGES
+                                    {loading ? <Spinner /> : "SAVE CHANGES"}
                                 </button>
                             </div>
                         </form>
