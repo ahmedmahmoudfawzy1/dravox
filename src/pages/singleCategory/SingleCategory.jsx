@@ -13,6 +13,7 @@ export default function SingleCategory() {
     const [selectedColorVariants, setSelectedColorVariants] = useState({});
     const [loadingProducts, setLoadingProducts] = useState({});
     const { data, isLoading, isError, error } = useSingleCategorie(slug);
+    console.log(data?.products)
 
 
 
@@ -53,7 +54,7 @@ export default function SingleCategory() {
     //     </div>
     // );
 
-    const products = data?.results || [];
+    const products = data?.products || [];
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-[120px] pb-12">
@@ -141,7 +142,7 @@ export default function SingleCategory() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                                     <div className="h-full flex items-center justify-center p-8">
                                         <img
-                                            src={primaryImage}
+                                            src={product.primary_thumbnail}
                                             alt={product.name}
                                             className="max-h-[70%] max-w-[80%] object-contain transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
                                         />

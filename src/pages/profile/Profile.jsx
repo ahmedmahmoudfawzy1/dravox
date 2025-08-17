@@ -124,7 +124,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaPhone className="text-gray-500 w-4" />
-                  <span className="text-sm">{data?.phone_number || "+1 234 567 890"}</span>
+                  <span className="text-sm">{data?.phone_number || "+090000000"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <FaMapMarkerAlt className="text-gray-500 w-4" />
