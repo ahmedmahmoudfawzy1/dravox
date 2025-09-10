@@ -297,7 +297,7 @@ export default function SingleOrder() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-300">
                     <FaUser className="text-gray-500" />
-                    <span>{order.shipping_address.full_name}</span>
+                    <span>{order.shipping_address?.full_name}</span>
                   </div>
                   <div className="flex items-start gap-3 text-gray-300">
                     <FaMapMarkerAlt className="text-gray-500 mt-1" />
@@ -326,7 +326,7 @@ export default function SingleOrder() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
+              {/* <div className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <FaCreditCard className="text-[#FF1E1E]" />
                   Billing Address
@@ -334,28 +334,28 @@ export default function SingleOrder() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-300">
                     <FaUser className="text-gray-500" />
-                    <span>{order.billing_address.full_name}</span>
+                    <span>{order.billing_address?.full_name}</span>
                   </div>
                   <div className="flex items-start gap-3 text-gray-300">
                     <FaMapMarkerAlt className="text-gray-500 mt-1" />
                     <div>
-                      <p>{order.billing_address.address_line1}</p>
-                      {order.billing_address.address_line2 && (
-                        <p>{order.billing_address.address_line2}</p>
+                      <p>{order.billing_address?.address_line1}</p>
+                      {order.billing_address?.address_line2 && (
+                        <p>{order.billing_address?.address_line2}</p>
                       )}
                       <p>
-                        {order.billing_address.city}, {order.billing_address.state || ""}{" "}
-                        {order.billing_address.postal_code}
+                        {order.billing_address?.city}, {order.billing_address?.state || ""}{" "}
+                        {order.billing_address?.postal_code}
                       </p>
-                      <p>{order.billing_address.country_display}</p>
+                      <p>{order.billing_address?.country_display}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
                     <FaPhone className="text-gray-500" />
-                    <span>{order.billing_address.phone_number}</span>
+                    <span>{order.billing_address?.phone_number}</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

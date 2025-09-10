@@ -10,15 +10,19 @@ import {
   FaUndo,
   FaStar,
   FaChevronRight,
-  FaCheck
+  FaCheck,
+  FaChevronLeft,
+  FaChevronRight as FaChevronRightIcon
 } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 import Spinner from "../../components/Loader/Spinner";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAddToCart } from "../../hooks/useCart";
 import { toast } from "react-toastify";
 import useCurrencyStore from "../../store/currencyStore";
 import WishlistBtn from "../../components/wishlistBtn/WishlistBtn";
+import ReactImageMagnify from 'react-image-magnify';
+import "./SingleProduct.css"
 
 export default function SingleProduct() {
   const { slug } = useParams();
@@ -28,14 +32,21 @@ export default function SingleProduct() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("features");
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const thumbnailContainerRef = useRef(null);
 
   const { data: product, isLoading, error } = useGetSingleProduct(slug);
+  console.log(product)
+
   const handleShareClick = () => {
     const productUrl = window.location.href;
     navigator.clipboard.writeText(productUrl)
       .then(() => {
+        toast.success("Link copied to clipboard!");
       })
       .catch(() => {
+        toast.error("Failed to copy link");
       });
   };
 
@@ -46,13 +57,54 @@ export default function SingleProduct() {
       color_variant_id: selectedColor.id,
       quantity: quantity,
     });
+    toast.success("Added To Cart")
   };
+
+  // Check scroll position for thumbnail navigation
+  const checkScrollPosition = () => {
+    if (thumbnailContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = thumbnailContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+    }
+  };
+
+  // Scroll thumbnail gallery
+  const scrollThumbnails = (direction) => {
+    if (thumbnailContainerRef.current) {
+      const scrollAmount = 100;
+      thumbnailContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (images && images.length > 0) {
+        if (e.key === 'ArrowLeft' && selectedImage > 0) {
+          setSelectedImage(selectedImage - 1);
+        } else if (e.key === 'ArrowRight' && selectedImage < images.length - 1) {
+          setSelectedImage(selectedImage + 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [selectedImage]);
 
   useEffect(() => {
     if (product?.color_variants?.length > 0) {
       setSelectedColor(product.color_variants[0]);
     }
   }, [product]);
+
+  useEffect(() => {
+    checkScrollPosition();
+  }, [selectedColor]);
 
   if (isLoading) {
     return (
@@ -78,7 +130,7 @@ export default function SingleProduct() {
   const currentPrice = product.prices?.find(p => p.currency === currency) || product.prices?.[0];
   const images = selectedColor?.media_files?.length > 0
     ? selectedColor.media_files
-    : [{ url: selectedColor?.thumbnail_url }];
+    : [{ file_url: selectedColor?.thumbnail_url, alt_text: product.localized_name }];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] pt-[120px] pb-12">
@@ -102,51 +154,140 @@ export default function SingleProduct() {
           <span className="text-[#FF1E1E]">{product.localized_name}</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
           {/* Product Images */}
           <div className="space-y-6">
-            {/* Main Image */}
-            <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <img
-                src={images[selectedImage]?.url || selectedColor?.thumbnail_url}
-                alt={product.localized_name}
-                className="max-w-full max-h-full object-contain transform transition-transform duration-700 group-hover:scale-110"
-              />
+            {/* Main Image with Image Counter */}
+            <div className="relative">
+              {/* Image Counter */}
+              <div className="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white">
+                {selectedImage + 1} / {images.length}
+              </div>
 
-              {/* Zoom Hint */}
-              <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                Hover to zoom
+              <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <ReactImageMagnify
+                  {...{
+                    smallImage: {
+                      alt: images[selectedImage]?.alt_text || product.localized_name,
+                      isFluidWidth: true,
+                      src: images[selectedImage]?.file_url || selectedColor?.thumbnail_url,
+                    },
+                    largeImage: {
+                      src: images[selectedImage]?.file_url || selectedColor?.thumbnail_url,
+                      width: 800,
+                      height: 1000,
+                    },
+                    enlargedImagePosition: "over",
+                  }}
+                />
+
+                {/* Zoom Hint */}
+                <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  Hover to zoom
+                </div>
+
+                {/* Keyboard Navigation Hint */}
+                <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  Use ← → keys to navigate
+                </div>
               </div>
             </div>
 
-            {/* Thumbnail Gallery */}
+            {/* Enhanced Thumbnail Gallery */}
             {images.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto pb-2">
-                {images.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`
-                      flex-shrink-0 w-20 h-20 bg-white/5 border-2 rounded-xl overflow-hidden transition-all duration-300
-                      ${selectedImage === index
-                        ? 'border-[#FF1E1E] scale-105'
-                        : 'border-white/10 hover:border-white/30'
-                      }
-                    `}
-                  >
-                    <img
-                      src={img.url}
-                      alt={`View ${index + 1}`}
-                      className="w-full h-full object-cover"
+              <div className="relative group">
+                {/* Scroll Left Button */}
+                <button
+                  onClick={() => scrollThumbnails('left')}
+                  className={`
+                    absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-black/80 backdrop-blur-sm 
+                    rounded-full flex items-center justify-center text-white transition-all duration-300
+                    ${canScrollLeft ? 'opacity-0 group-hover:opacity-100 hover:bg-[#FF1E1E]' : 'hidden'}
+                  `}
+                  aria-label="Scroll thumbnails left"
+                >
+                  <FaChevronLeft className="text-sm" />
+                </button>
+
+                {/* Scroll Right Button */}
+                <button
+                  onClick={() => scrollThumbnails('right')}
+                  className={`
+                    absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-black/80 backdrop-blur-sm 
+                    rounded-full flex items-center justify-center text-white transition-all duration-300
+                    ${canScrollRight ? 'opacity-0 group-hover:opacity-100 hover:bg-[#FF1E1E]' : 'hidden'}
+                  `}
+                  aria-label="Scroll thumbnails right"
+                >
+                  <FaChevronRightIcon className="text-sm" />
+                </button>
+
+                {/* Thumbnail Container */}
+                <div
+                  ref={thumbnailContainerRef}
+                  onScroll={checkScrollPosition}
+                  className="flex gap-3 overflow-x-auto pb-2 scroll-smooth thumbnail-gallery-scrollbar"
+                  style={{
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: '#FF1E1E40 #ffffff10'
+                  }}
+                >
+                  {images.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`
+                        relative flex-shrink-0 w-20 h-20 bg-white/5 border-2 rounded-xl overflow-hidden 
+                        transition-all duration-300 group/thumb
+                        ${selectedImage === index
+                          ? 'border-[#FF1E1E] scale-105 shadow-lg shadow-[#FF1E1E]/30'
+                          : 'border-white/10 hover:border-white/30'
+                        }
+                      `}
+                      aria-label={`View image ${index + 1}`}
+                    >
+                      <img
+                        src={img.file_url || img.url}
+                        alt={`${product.localized_name} - View ${index + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-110"
+                        loading="lazy"
+                      />
+
+                      {/* Active Indicator */}
+                      {selectedImage === index && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#FF1E1E]/30 to-transparent pointer-events-none" />
+                      )}
+
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300" />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Thumbnail Dots Indicator (for mobile) */}
+                <div className="flex justify-center gap-2 mt-3 lg:hidden">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`
+                        w-2 h-2 rounded-full transition-all duration-300
+                        ${selectedImage === index
+                          ? 'bg-[#FF1E1E] w-6'
+                          : 'bg-white/30 hover:bg-white/50'
+                        }
+                      `}
+                      aria-label={`Go to image ${index + 1}`}
                     />
-                  </button>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
-          {/* Product Info */}
+          {/* Product Info - Rest of your existing code remains the same */}
           <div className="space-y-6">
             {/* Title & Category */}
             <div>
@@ -180,11 +321,6 @@ export default function SingleProduct() {
               <p className="text-4xl font-bold text-[#FF1E1E]">
                 {currentPrice?.formatted || `${currentPrice?.symbol}${currentPrice?.amount}`}
               </p>
-              {Math.random() > 0.5 && (
-                <p className="text-xl text-gray-500 line-through">
-                  {currentPrice?.symbol}{(parseFloat(currentPrice?.amount) * 1.3).toFixed(2)}
-                </p>
-              )}
             </div>
 
             {/* Color Selection */}
@@ -195,7 +331,10 @@ export default function SingleProduct() {
                   {product.color_variants.map((variant) => (
                     <button
                       key={variant.id}
-                      onClick={() => setSelectedColor(variant)}
+                      onClick={() => {
+                        setSelectedColor(variant);
+                        setSelectedImage(0); // Reset to first image when changing color
+                      }}
                       className={`
                         relative w-12 h-12 rounded-full border-2 transition-all duration-300
                         ${selectedColor?.id === variant.id
@@ -280,7 +419,6 @@ export default function SingleProduct() {
                 >
                   <FaShare />
                 </button>
-
               </div>
             </div>
 

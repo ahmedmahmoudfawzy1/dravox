@@ -1,5 +1,6 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { useAddToCart } from "../../hooks/useCart";
+import { toast } from "react-toastify";
 
 export default function CartButton({ product }) {
   // console.log(product);
@@ -11,6 +12,7 @@ export default function CartButton({ product }) {
       color_variant_id: product.color_variant?.id,
       quantity: 1,
     });
+
   };
 
   return (

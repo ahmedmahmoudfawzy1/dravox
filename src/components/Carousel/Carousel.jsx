@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -16,7 +16,7 @@ export default function Slider() {
     const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
     return (
-        <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] sm:pt-6 pb-1 overflow-hidden">
+        <div className="relative w-full bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] py-6 overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-[#FF1E1E]/20 rounded-full blur-3xl animate-pulse" />
@@ -29,12 +29,12 @@ export default function Slider() {
                         {data?.map((slide) => (
                             <div
                                 key={slide.id}
-                                className="flex-[0_0_100%] px-2 sm:px-4 max-w-full"
+                                className="flex-[0_0_100%] px-2 sm:px-4"
                             >
-                                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-3xl overflow-hidden shadow-2xl h-[80vh]">
-                                    <div className="flex flex-col lg:grid lg:grid-cols-2 h-full">
+                                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-3xl overflow-hidden shadow-2xl">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] md:min-h-[500px] lg:min-h-[600px]">
                                         {/* Content */}
-                                        <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10 order-2 lg:order-1">
+                                        <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12 order-2 lg:order-1">
                                             <div className="mb-3 sm:mb-6">
                                                 <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 bg-[#FF1E1E]/20 border border-[#FF1E1E]/30 text-[#FF1E1E] rounded-full text-xs sm:text-sm font-semibold">
                                                     <HiSparkles />
@@ -42,31 +42,40 @@ export default function Slider() {
                                                 </span>
                                             </div>
 
-                                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-snug">
+                                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
                                                 {slide.title}
                                             </h2>
 
-                                            <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-5 sm:mb-8 max-w-md">
+                                            <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-5 sm:mb-8 max-w-xl">
                                                 {slide.short_description}
                                             </p>
 
-                                            <Link
-                                                to={slide.button_url}
-                                                className="inline-flex  justify-between w-[50%] items-center gap-2 sm:gap-3 px-5 sm:px-7 py-2 sm:py-3 bg-[#FF1E1E] hover:bg-[#ff3333] text-white text-sm sm:text-base font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30"
-                                            >
-                                                {slide.button_text}
-                                                <FaChevronRight />
-                                            </Link>
+                                            <div>
+                                                <Link
+                                                    to={slide.button_url}
+                                                    className="inline-flex items-center justify-between gap-3 px-5 sm:px-7 py-2.5 sm:py-3 bg-[#FF1E1E] hover:bg-[#ff3333] text-white text-sm sm:text-base font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FF1E1E]/30 w-auto max-w-[200px] sm:max-w-[250px]"
+                                                >
+                                                    <span>{slide.button_text}</span>
+                                                    <FaChevronRight className="flex-shrink-0" />
+                                                </Link>
+                                            </div>
                                         </div>
 
-                                        {/* Image */}
-                                        <div className="relative h-full flex items-center justify-center p-4 sm:p-8 order-1 lg:order-2">
-                                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-50 lg:opacity-100" />
-                                            <img
-                                                src={slide.image}
-                                                alt={slide.title}
-                                                className="max-w-[60%] sm:max-w-[80%] lg:max-w-full max-h-full object-contain transition-all duration-1000"
-                                            />
+                                        {/* Image Container */}
+                                        <div className="relative flex items-center justify-center p-6 sm:p-8 lg:p-12 order-1 lg:order-2 min-h-[250px] sm:min-h-[300px]">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-50" />
+                                            <div className="relative w-full h-full flex items-center justify-center">
+                                                <img
+                                                    src={slide.image}
+                                                    alt={slide.title}
+                                                    className="max-w-full max-h-full object-contain"
+                                                    style={{
+                                                        maxHeight: '350px',
+                                                        width: 'auto',
+                                                        height: 'auto'
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -75,19 +84,34 @@ export default function Slider() {
                     </div>
                 </div>
 
-                {/* Arrows */}
-                {/* <button
+                {/* Navigation Arrows */}
+                <button
                     onClick={scrollPrev}
-                    className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 sm:bg-white/10 hover:bg-[#FF1E1E]/20 border border-white/30 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20"
+                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-[#FF1E1E]/80 border border-white/30 hover:border-[#FF1E1E] rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20 group"
+                    aria-label="Previous slide"
                 >
-                    <FaChevronLeft />
+                    <FaChevronLeft className="text-sm sm:text-base group-hover:text-white" />
                 </button>
                 <button
                     onClick={scrollNext}
-                    className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 sm:bg-white/10 hover:bg-[#FF1E1E]/20 border border-white/30 hover:border-[#FF1E1E]/50 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20"
+                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-[#FF1E1E]/80 border border-white/30 hover:border-[#FF1E1E] rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110 z-20 group"
+                    aria-label="Next slide"
                 >
-                    <FaChevronRight />
-                </button> */}
+                    <FaChevronRight className="text-sm sm:text-base group-hover:text-white" />
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center gap-2 mt-4 sm:mt-6">
+                    {data?.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => emblaApi && emblaApi.scrollTo(index)}
+                            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-[#FF1E1E] w-8' : 'bg-white/30 hover:bg-white/50'
+                                }`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

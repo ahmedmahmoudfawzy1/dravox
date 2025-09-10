@@ -13,11 +13,14 @@ export default function PopupModal() {
     const [canClose, setCanClose] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-    }, [data]);
+    useEffect(() => { }, [data]);
 
     useEffect(() => {
         if (!popupFromAPI) return;
+
+        // ✅ لو فيه flag في sessionStorage يبقى الـ popup مش هيظهر
+        const hasBeenViewedSession = sessionStorage.getItem("popup_viewed");
+        if (hasBeenViewedSession === "true") return;
 
         if (!popupFromAPI.should_show) return;
         if (popupFromAPI.has_been_viewed) return;
@@ -41,6 +44,8 @@ export default function PopupModal() {
     }, [countdown, popup]);
 
     const handleClose = () => {
+        // ✅ حفظ حالة إن الـ popup اتشافت في sessionStorage
+        sessionStorage.setItem("popup_viewed", "true");
         setIsVisible(false);
     };
 

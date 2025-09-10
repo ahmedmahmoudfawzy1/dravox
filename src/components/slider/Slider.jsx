@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight, FaBolt, FaShieldAlt, FaTruck } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
-import { getAllSlides } from "../../api/slides";
 import { useSlides } from "../../hooks/useSlides";
 
 
