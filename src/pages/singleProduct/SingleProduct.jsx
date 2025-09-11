@@ -83,10 +83,10 @@ export default function SingleProduct() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (images && images.length > 0) {
+      if (images && images?.length > 0) {
         if (e.key === 'ArrowLeft' && selectedImage > 0) {
           setSelectedImage(selectedImage - 1);
-        } else if (e.key === 'ArrowRight' && selectedImage < images.length - 1) {
+        } else if (e.key === 'ArrowRight' && selectedImage < images?.length - 1) {
           setSelectedImage(selectedImage + 1);
         }
       }
@@ -268,7 +268,7 @@ export default function SingleProduct() {
 
                 {/* Thumbnail Dots Indicator (for mobile) */}
                 <div className="flex justify-center gap-2 mt-3 lg:hidden">
-                  {images.map((_, index) => (
+                  {images?.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
