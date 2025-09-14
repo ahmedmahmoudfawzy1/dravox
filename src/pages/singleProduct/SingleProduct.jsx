@@ -167,7 +167,7 @@ export default function SingleProduct() {
               <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <ReactImageMagnify
+                {/* <ReactImageMagnify
                   {...{
                     smallImage: {
                       alt: images[selectedImage]?.alt_text || product.localized_name,
@@ -181,7 +181,9 @@ export default function SingleProduct() {
                     },
                     enlargedImagePosition: "over",
                   }}
-                />
+                /> */}
+
+                <img src={images[selectedImage]?.file_url || selectedColor?.thumbnail_url} alt="" />
 
                 {/* Zoom Hint */}
                 <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
