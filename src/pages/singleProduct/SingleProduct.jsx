@@ -21,7 +21,7 @@ import { useAddToCart } from "../../hooks/useCart";
 import { toast } from "react-toastify";
 import useCurrencyStore from "../../store/currencyStore";
 import WishlistBtn from "../../components/wishlistBtn/WishlistBtn";
-import ReactImageMagnify from 'react-image-magnify';
+// import ReactImageMagnify from 'react-image-magnify';
 import "./SingleProduct.css"
 
 export default function SingleProduct() {
