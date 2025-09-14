@@ -234,7 +234,7 @@ export default function SingleProduct() {
                     scrollbarColor: '#FF1E1E40 #ffffff10'
                   }}
                 >
-                  {images.map((img, index) => (
+                  {images?.map((img, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
@@ -308,7 +308,7 @@ export default function SingleProduct() {
               {/* Rating */}
               <div className="flex items-center gap-4 mb-4">
                 <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(5)]?.map((_, i) => (
                     <FaStar key={i} className={`${i < 4 ? 'text-yellow-500' : 'text-gray-600'} text-sm`} />
                   ))}
                 </div>
@@ -328,7 +328,7 @@ export default function SingleProduct() {
               <div>
                 <h3 className="text-white font-semibold mb-3">Color: {selectedColor?.localized_color_name}</h3>
                 <div className="flex gap-3">
-                  {product.color_variants.map((variant) => (
+                  {product.color_variants?.map((variant) => (
                     <button
                       key={variant.id}
                       onClick={() => {
@@ -452,7 +452,7 @@ export default function SingleProduct() {
         <div className="mt-16">
           {/* Tab Headers */}
           <div className="flex flex-wrap gap-4 border-b border-white/10">
-            {["features", "specifications", "reviews"].map((tab) => (
+            {["features", "specifications", "reviews"]?.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -493,7 +493,7 @@ export default function SingleProduct() {
                   <div key={category} className="mb-6 last:mb-0">
                     <h4 className="text-white font-semibold mb-4">{category}</h4>
                     <div className="space-y-3">
-                      {specs.map((spec) => (
+                      {specs?.map((spec) => (
                         <div key={spec.id} className="flex justify-between py-2 border-b border-white/10 last:border-0">
                           <span className="text-gray-400">{spec.localized_name}</span>
                           <span className="text-white font-medium">{spec.display_value}</span>

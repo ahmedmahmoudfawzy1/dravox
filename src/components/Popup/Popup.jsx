@@ -44,7 +44,6 @@ export default function PopupModal() {
     }, [countdown, popup]);
 
     const handleClose = () => {
-        // ✅ حفظ حالة إن الـ popup اتشافت في sessionStorage
         sessionStorage.setItem("popup_viewed", "true");
         setIsVisible(false);
     };
