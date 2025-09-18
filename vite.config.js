@@ -7,13 +7,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ['jwt-decode'],
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://api.getdravox.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
+
 })

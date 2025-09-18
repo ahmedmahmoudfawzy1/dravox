@@ -27,13 +27,14 @@ export const useGetOrders = (token) => {
 
 export const useGetSingleOrder = (orderId, token) => {
     return useQuery({
-        queryKey: ["single-order", orderId],
+        queryKey: ["singleOrder", orderId],
         queryFn: () =>
             axiosInstance.get(`/orders/orders/${orderId}/`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },
             }),
+        select: (res) => res.data,
         enabled: !!token && !!orderId,
     });
 };

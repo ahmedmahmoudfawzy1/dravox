@@ -16,15 +16,22 @@ import { useState, useEffect } from "react";
 import useAuthStore from "../../store/authStore";
 import Orders from "../../components/orders/Orders";
 import { useUserInfo } from "../../hooks/useUser";
+import { useGetOrders } from "../../hooks/useOrder";
 
 export default function ProfilePage() {
-  const { user, logout } = useAuthStore();
+  const { user, logout, token } = useAuthStore();
+
+
+  const { data: orders, isLoading, error } = useGetOrders(token);
+
+  const ordersCount = orders?.data?.results?.length
 
   const { data } = useUserInfo()
-
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("orders");
+
+
 
   // useEffect(() => {
   //   if (location.pathname.includes("/profile/order/")) {
@@ -150,7 +157,7 @@ export default function ProfilePage() {
               My Orders
             </h2>
             <span className="px-3 py-1 bg-[#FF1E1E]/20 text-[#FF1E1E] text-sm font-bold rounded-full">
-              3 Active Orders
+              Active Orders {ordersCount}
             </span>
           </div>
           {renderContent()}

@@ -36,6 +36,9 @@ export default function SingleProduct() {
   const [canScrollRight, setCanScrollRight] = useState(false);
   const thumbnailContainerRef = useRef(null);
 
+  const [origin, setOrigin] = useState("center center");
+  const [isZoomed, setIsZoomed] = useState(false);
+
   const { data: product, isLoading, error } = useGetSingleProduct(slug);
   console.log(product)
 
@@ -105,7 +108,18 @@ export default function SingleProduct() {
   useEffect(() => {
     checkScrollPosition();
   }, [selectedColor]);
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setOrigin(`${x}% ${y}%`);
+    setIsZoomed(true);
+  };
 
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+    setOrigin("center center");
+  };
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] flex items-center justify-center pt-[120px]">
@@ -164,40 +178,51 @@ export default function SingleProduct() {
                 {selectedImage + 1} / {images.length}
               </div>
 
-              <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group">
+              {/* <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* <ReactImageMagnify
-                  {...{
-                    smallImage: {
-                      alt: images[selectedImage]?.alt_text || product.localized_name,
-                      isFluidWidth: true,
-                      src: images[selectedImage]?.file_url || selectedColor?.thumbnail_url,
-                    },
-                    largeImage: {
-                      src: images[selectedImage]?.file_url || selectedColor?.thumbnail_url,
-                      width: 800,
-                      height: 1000,
-                    },
-                    enlargedImagePosition: "over",
-                  }}
-                /> */}
+              
 
                 <img src={images[selectedImage]?.file_url || selectedColor?.thumbnail_url} alt="" />
 
-                {/* Zoom Hint */}
+
                 <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
                   Hover to zoom
                 </div>
 
-                {/* Keyboard Navigation Hint */}
+
+                <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  Use ← → keys to navigate
+                </div>
+              </div> */}
+              <div
+                className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10 rounded-3xl p-8 h-[500px] flex items-center justify-center overflow-hidden group"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FF1E1E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <img
+                  src={images[selectedImage]?.file_url || selectedColor?.thumbnail_url}
+                  alt=""
+                  className="max-h-full max-w-full object-contain transition-transform duration-200"
+                  style={{
+                    transform: isZoomed ? "scale(2)" : "scale(1)",
+                    transformOrigin: origin,
+                  }}
+                />
+
+                <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  Hover to zoom
+                </div>
+
                 <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity">
                   Use ← → keys to navigate
                 </div>
               </div>
             </div>
 
-            {/* Enhanced Thumbnail Gallery */}
+
             {images.length > 1 && (
               <div className="relative group">
                 {/* Scroll Left Button */}

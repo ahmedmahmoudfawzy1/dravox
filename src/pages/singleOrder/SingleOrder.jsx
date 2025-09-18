@@ -31,6 +31,7 @@ import AlertModal from "../../components/alertDialog/AlertModal";
 export default function SingleOrder() {
   const { orderId } = useParams();
   const { token } = useAuthStore();
+
   const { data, isLoading, error } = useGetSingleOrder(orderId, token);
   const navigate = useNavigate();
 
